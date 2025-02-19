@@ -2,6 +2,7 @@ package app;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -22,24 +23,29 @@ public class Ventana extends JFrame
 	Font subtitulo = new Font("Serif", Font.PLAIN, 20);
 	Font mini = new Font("Cambria", Font.PLAIN, 14);
 	
+	Font calculadoraFontResultado = new Font("Cambria", Font.PLAIN, 32);
+	Font calculadoraFont = new Font("Cambria", Font.PLAIN, 20);
+	
 	public Ventana(String title)
 	{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(500, 800);
+		this.setSize(500, 500);
 		this.setTitle(title);
 		this.setLocationRelativeTo(null);
 		
 		this.setMinimumSize(new Dimension(400, 400));
-		this.setMaximumSize(new Dimension(600, 600));
 		
 		// this.add(login());
-		this.add(register());
+		// this.add(register());
+		this.add(calculadora());
 		this.repaint();
 		this.setVisible(true);
 	}
 	
 	public JPanel login()
 	{
+		// Size de ventana recomendada: (500, 500)
+		
 		JPanel panel = new JPanel();
 		panel.setLocation(0, 0);
 		panel.setSize(this.WIDTH, this.HEIGHT);
@@ -130,6 +136,8 @@ public class Ventana extends JFrame
 	
 	public JPanel register()
 	{
+		// Size de la ventana recomendada: (500, 800)
+		
 		JPanel panel = new JPanel();
 		panel.setLocation(0, 0);
 		panel.setSize(this.WIDTH, this.HEIGHT);
@@ -269,6 +277,260 @@ public class Ventana extends JFrame
 		registrarse.setFont(subtitulo);
 		registrarse.setLayout(null);
 		panel.add(registrarse);
+		
+		panel.revalidate();
+		return panel;
+	}
+	
+	
+	public JPanel calculadora()
+	{
+		// Size de la ventana recomendada: (500, 500)
+		
+		JPanel panel = new JPanel();
+		panel.setLocation(0, 0);
+		panel.setSize(this.WIDTH, this.HEIGHT);
+		panel.setOpaque(true);
+		panel.setLayout(null);
+		panel.setBackground(new Color(15, 15, 3));
+		
+		// Creamos un segundo panel para ponerle un GridLayout y lo añadimos al panel principal
+		
+		JPanel panelGrid = new JPanel();
+		panelGrid.setLocation(20, 100);
+		panelGrid.setSize(450, 350);
+		panelGrid.setOpaque(false);
+		panelGrid.setLayout(new GridLayout(0, 4, 10, 10));
+		panel.add(panelGrid);
+		
+		
+		// JLabel
+		
+		JLabel resultado = new JLabel("192");
+		resultado.setSize(450, 80);
+		resultado.setLocation(20, 10);
+		resultado.setBackground(new Color(74, 74, 66));
+		resultado.setForeground(Color.white);
+		resultado.setOpaque(true);
+		resultado.setFont(calculadoraFontResultado);
+		resultado.setHorizontalAlignment(JLabel.RIGHT);
+		panel.add(resultado);
+		
+		
+		// JButtons
+		// Todos los botones se pondrán en panelGrid.
+		// Los botones se van a ir añadiendo de izquierda a derecha.
+		
+		// Primera fila
+		
+		JButton borrar = new JButton("CE");
+		borrar.setSize(50, 50);
+		borrar.setLocation(90, 100);
+		borrar.setFont(calculadoraFont);
+		borrar.setLayout(null);
+		borrar.setBackground(new Color(61, 61, 61));
+		borrar.setForeground(Color.white);
+		borrar.setBorderPainted(false);
+		panelGrid.add(borrar);
+		
+		JButton espacio1 = new JButton();
+		espacio1.setSize(50, 50);
+		espacio1.setLocation(90, 100);
+		espacio1.setFont(calculadoraFont);
+		espacio1.setLayout(null);
+		espacio1.setBackground(new Color(61, 61, 61));
+		espacio1.setForeground(Color.white);
+		espacio1.setBorderPainted(false);
+		panelGrid.add(espacio1);
+		
+		JButton espacio2 = new JButton();
+		espacio2.setSize(50, 50);
+		espacio2.setLocation(90, 100);
+		espacio2.setFont(calculadoraFont);
+		espacio2.setLayout(null);
+		espacio2.setBackground(new Color(61, 61, 61));
+		espacio2.setForeground(Color.white);
+		espacio2.setBorderPainted(false);
+		panelGrid.add(espacio2);
+		
+		JButton espacio3 = new JButton();
+		espacio3.setSize(50, 50);
+		espacio3.setLocation(90, 100);
+		espacio3.setFont(calculadoraFont);
+		espacio3.setLayout(null);
+		espacio3.setBackground(new Color(61, 61, 61));
+		espacio3.setForeground(Color.white);
+		espacio3.setBorderPainted(false);
+		panelGrid.add(espacio3);
+		
+		// Segunda fila
+		
+		JButton siete = new JButton("7");
+		siete.setSize(50, 50);
+		siete.setLocation(90, 100);
+		siete.setFont(calculadoraFont);
+		siete.setLayout(null);
+		siete.setBackground(new Color(31, 31, 15));
+		siete.setForeground(Color.white);
+		siete.setBorderPainted(false);
+		panelGrid.add(siete);
+		
+		JButton ocho = new JButton("8");
+		ocho.setSize(50, 50);
+		ocho.setLocation(90, 100);
+		ocho.setFont(calculadoraFont);
+		ocho.setLayout(null);
+		ocho.setBackground(new Color(31, 31, 15));
+		ocho.setForeground(Color.white);
+		ocho.setBorderPainted(false);
+		panelGrid.add(ocho);
+		
+		JButton nueve = new JButton("9");
+		nueve.setSize(50, 50);
+		nueve.setLocation(90, 100);
+		nueve.setFont(calculadoraFont);
+		nueve.setLayout(null);
+		nueve.setBackground(new Color(31, 31, 15));
+		nueve.setForeground(Color.white);
+		nueve.setBorderPainted(false);
+		panelGrid.add(nueve);
+		
+		JButton division = new JButton("/");
+		division.setSize(50, 50);
+		division.setLocation(90, 100);
+		division.setFont(calculadoraFont);
+		division.setLayout(null);
+		division.setBackground(new Color(115, 76, 8));
+		division.setForeground(Color.white);
+		division.setBorderPainted(false);
+		panelGrid.add(division);
+		
+		// Tercera fila
+		
+		JButton cuatro = new JButton("4");
+		cuatro.setSize(50, 50);
+		cuatro.setLocation(90, 100);
+		cuatro.setFont(calculadoraFont);
+		cuatro.setLayout(null);
+		cuatro.setBackground(new Color(31, 31, 15));
+		cuatro.setForeground(Color.white);
+		cuatro.setBorderPainted(false);
+		panelGrid.add(cuatro);
+		
+		JButton cinco = new JButton("5");
+		cinco.setSize(50, 50);
+		cinco.setLocation(90, 100);
+		cinco.setFont(calculadoraFont);
+		cinco.setLayout(null);
+		cinco.setBackground(new Color(31, 31, 15));
+		cinco.setForeground(Color.white);
+		cinco.setBorderPainted(false);
+		panelGrid.add(cinco);
+		
+		JButton seis = new JButton("6");
+		seis.setSize(50, 50);
+		seis.setLocation(90, 100);
+		seis.setFont(calculadoraFont);
+		seis.setLayout(null);
+		seis.setBackground(new Color(31, 31, 15));
+		seis.setForeground(Color.white);
+		seis.setBorderPainted(false);
+		panelGrid.add(seis);
+		
+		JButton multiplicacion = new JButton("*");
+		multiplicacion.setSize(50, 50);
+		multiplicacion.setLocation(90, 100);
+		multiplicacion.setFont(calculadoraFont);
+		multiplicacion.setLayout(null);
+		multiplicacion.setBackground(new Color(115, 76, 8));
+		multiplicacion.setForeground(Color.white);
+		multiplicacion.setBorderPainted(false);
+		panelGrid.add(multiplicacion);
+		
+		// Cuarta fila
+		
+		JButton uno = new JButton("1");
+		uno.setSize(50, 50);
+		uno.setLocation(90, 100);
+		uno.setFont(calculadoraFont);
+		uno.setLayout(null);
+		uno.setBackground(new Color(31, 31, 15));
+		uno.setForeground(Color.white);
+		uno.setBorderPainted(false);
+		panelGrid.add(uno);
+		
+		JButton dos = new JButton("2");
+		dos.setSize(50, 50);
+		dos.setLocation(90, 100);
+		dos.setFont(calculadoraFont);
+		dos.setLayout(null);
+		dos.setBackground(new Color(31, 31, 15));
+		dos.setForeground(Color.white);
+		dos.setBorderPainted(false);
+		panelGrid.add(dos);
+		
+		JButton tres = new JButton("3");
+		tres.setSize(50, 50);
+		tres.setLocation(90, 100);
+		tres.setFont(calculadoraFont);
+		tres.setLayout(null);
+		tres.setBackground(new Color(31, 31, 15));
+		tres.setForeground(Color.white);
+		tres.setBorderPainted(false);
+		panelGrid.add(tres);
+		
+		JButton menos = new JButton("-");
+		menos.setSize(50, 50);
+		menos.setLocation(90, 100);
+		menos.setFont(calculadoraFont);
+		menos.setLayout(null);
+		menos.setBackground(new Color(115, 76, 8));
+		menos.setForeground(Color.white);
+		menos.setBorderPainted(false);
+		panelGrid.add(menos);
+		
+		// Última fila
+		
+		JButton cero = new JButton("0");
+		cero.setSize(50, 50);
+		cero.setLocation(90, 100);
+		cero.setFont(calculadoraFont);
+		cero.setLayout(null);
+		cero.setBackground(new Color(31, 31, 15));
+		cero.setForeground(Color.white);
+		cero.setBorderPainted(false);
+		panelGrid.add(cero);
+		
+		JButton decimal = new JButton(".");
+		decimal.setSize(50, 50);
+		decimal.setLocation(90, 100);
+		decimal.setFont(calculadoraFont);
+		decimal.setLayout(null);
+		decimal.setBackground(new Color(31, 31, 15));
+		decimal.setForeground(Color.white);
+		decimal.setBorderPainted(false);
+		panelGrid.add(decimal);
+		
+		JButton igual = new JButton("=");
+		igual.setSize(50, 50);
+		igual.setLocation(90, 100);
+		igual.setFont(calculadoraFont);
+		igual.setLayout(null);
+		igual.setBackground(new Color(115, 76, 8));
+		igual.setForeground(Color.white);
+		igual.setBorderPainted(false);
+		panelGrid.add(igual);
+		
+		JButton mas = new JButton("+");
+		mas.setSize(50, 50);
+		mas.setLocation(90, 100);
+		mas.setFont(calculadoraFont);
+		mas.setLayout(null);
+		mas.setBackground(new Color(115, 76, 8));
+		mas.setForeground(Color.white);
+		mas.setBorderPainted(false);
+		panelGrid.add(mas);
+		
 		
 		panel.revalidate();
 		return panel;
