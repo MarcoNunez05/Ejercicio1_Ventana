@@ -14,6 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -29,7 +31,7 @@ public class Ventana extends JFrame
 	public Ventana(String title)
 	{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(500, 500);
+		this.setSize(1000, 800);
 		this.setTitle(title);
 		this.setLocationRelativeTo(null);
 		
@@ -37,7 +39,8 @@ public class Ventana extends JFrame
 		
 		// this.add(login());
 		// this.add(register());
-		this.add(calculadora());
+		// this.add(calculadora());
+		this.add(tablaRegistros());
 		this.repaint();
 		this.setVisible(true);
 	}
@@ -531,6 +534,119 @@ public class Ventana extends JFrame
 		mas.setBorderPainted(false);
 		panelGrid.add(mas);
 		
+		
+		panel.revalidate();
+		return panel;
+	}
+	
+	public JPanel tablaRegistros()
+	{
+		// Size de la ventana recomendada: (500, 800)
+		
+		JPanel panel = new JPanel();
+		panel.setLocation(0, 0);
+		panel.setSize(this.WIDTH, this.HEIGHT);
+		panel.setOpaque(true);
+		panel.setLayout(null);
+		panel.setBackground(new Color(200, 180, 237));
+		
+				
+		// JLabels
+				
+		JLabel labelUsuarios = new JLabel("Usuarios");
+		labelUsuarios.setSize(160, 40);
+		labelUsuarios.setLocation(420, 10);
+		labelUsuarios.setBackground(new Color(153, 151, 247));
+		labelUsuarios.setOpaque(true);
+		labelUsuarios.setFont(titulo);
+		labelUsuarios.setHorizontalAlignment(JLabel.CENTER);
+		panel.add(labelUsuarios);
+		
+		JLabel totalUsuarios = new JLabel("Total de usuarios registrados: 100");
+		totalUsuarios.setSize(300, 40);
+		totalUsuarios.setLocation(350, 80);
+		totalUsuarios.setOpaque(true);
+		totalUsuarios.setFont(subtitulo);
+		totalUsuarios.setBorder(BorderFactory.createLineBorder(Color.black));
+		totalUsuarios.setHorizontalAlignment(JLabel.CENTER);
+		panel.add(totalUsuarios);
+		
+		
+		// JButtons
+		
+		JButton exportar = new JButton("Exportar");
+		exportar.setSize(150, 40);
+		exportar.setLocation(335, 670);
+		exportar.setFont(subtitulo);
+		exportar.setLayout(null);
+		panel.add(exportar);
+		
+		JButton agregar = new JButton("Añadir");
+		agregar.setSize(150, 40);
+		agregar.setLocation(510, 670);
+		agregar.setFont(subtitulo);
+		agregar.setLayout(null);
+		panel.add(agregar);
+		
+		
+		// JTable
+		
+		String[] nombreColumnas = {
+				"ID",
+				"Nombre",
+				"Correo Electrónico",
+				"Edad",
+				"Juego"
+				};
+		
+		Object[][] datos = {
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"},
+				{"ID", "Nombre", "Correo", "Edad", "Juego"}};
+					
+		
+		JTable tabla = new JTable(datos, nombreColumnas);
+		JScrollPane scrollPane = new JScrollPane(tabla);
+		scrollPane.setLocation(30, 150);
+		scrollPane.setSize(920, 500);
+		panel.add(scrollPane);
 		
 		panel.revalidate();
 		return panel;
