@@ -2,6 +2,7 @@ package app;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
@@ -11,12 +12,17 @@ import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
+import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
@@ -30,29 +36,70 @@ public class Ventana extends JFrame
 	Font subtitulo = new Font("Cambria Math", Font.PLAIN, 20);
 	Font mini = new Font("Cambria Math", Font.PLAIN, 14);
 	
-	Font calculadoraFontResultado = new Font("Cambria", Font.PLAIN, 32);
-	Font calculadoraFont = new Font("Cambria", Font.PLAIN, 20);
+	Font calculadoraFontResultado = new Font("Cambria", Font.PLAIN, 48);
+	Font calculadoraFont = new Font("Cambria", Font.PLAIN, 28);
 	
 	public Ventana(String title)
 	{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(800, 700);
+		this.setSize(500, 530);
 		this.setTitle(title);
 		this.setLocationRelativeTo(null);
 		
 		this.setMinimumSize(new Dimension(400, 400));
 		
-		this.add(login());
+		
+		// JMenuBar, JMenu y JMenuItem
+		
+		JMenuBar barra = new JMenuBar();
+		
+		
+		JMenu archivo = new JMenu("Archivo");
+		
+		
+		JMenuItem nuevo = new JMenuItem("Nuevo");
+		nuevo.setIcon(new ImageIcon(getClass().getResource("images/plus.png")));
+		
+		JMenuItem guardar = new JMenuItem("Guardar");
+		guardar.setIcon(new ImageIcon(getClass().getResource("images/save.png")));
+		
+		JMenuItem abrir = new JMenuItem("Abrir");
+		abrir.setIcon(new ImageIcon(getClass().getResource("images/openFolder.png")));
+		
+		archivo.add(nuevo);
+		archivo.add(guardar);
+		archivo.add(abrir);
+		
+		
+		JMenu ayuda = new JMenu("Ayuda");
+		
+		JRadioButtonMenuItem manual = new JRadioButtonMenuItem("Manual de usuario");
+		JCheckBoxMenuItem soporte = new JCheckBoxMenuItem("Soporte");
+		
+		ayuda.add(manual);
+		ayuda.add(soporte);	
+		
+		
+		barra.add(archivo);
+		barra.add(ayuda);
+		
+		this.setJMenuBar(barra);
+		
+		
+		// Añadimos el panel
+		
+		// this.add(login());
 		// this.add(register());
 		// this.add(calculadora());
 		// this.add(tablaRegistros());
+		this.add(interes());
 		this.repaint();
 		this.setVisible(true);
 	}
 	
 	public JPanel login()
 	{
-		// Size de ventana recomendada: (800, 700)
+		// Size de ventana recomendada: ((800, 700) o si tiene un JMenuBar: (800, 730))
 		
 		JPanel panelAfuera = new JPanel();
 		panelAfuera.setLocation(0, 0);
@@ -382,13 +429,13 @@ public class Ventana extends JFrame
 	
 	public JPanel calculadora()
 	{
-		// Size de la ventana recomendada: (500, 500)
+		// Size de la ventana recomendada: ((500, 500) o si tiene un JMenuBar: (500, 530))
 		
 		JPanel panel = new JPanel();
 		panel.setLocation(0, 0);
 		panel.setSize(this.WIDTH, this.HEIGHT);
 		panel.setOpaque(true);
-		panel.setLayout(null);
+		panel.setLayout(new BorderLayout(10, 10));
 		panel.setBackground(new Color(15, 15, 3));
 		
 		// Creamos un segundo panel para ponerle un GridLayout y lo añadimos al panel principal
@@ -404,14 +451,12 @@ public class Ventana extends JFrame
 		// JLabel
 		
 		JLabel resultado = new JLabel("192");
-		resultado.setSize(450, 80);
-		resultado.setLocation(20, 10);
 		resultado.setBackground(new Color(74, 74, 66));
 		resultado.setForeground(Color.white);
 		resultado.setOpaque(true);
 		resultado.setFont(calculadoraFontResultado);
 		resultado.setHorizontalAlignment(JLabel.RIGHT);
-		panel.add(resultado);
+		panel.add(resultado, BorderLayout.NORTH);
 		
 		
 		// JButtons
@@ -421,40 +466,28 @@ public class Ventana extends JFrame
 		// Primera fila
 		
 		JButton borrar = new JButton("CE");
-		borrar.setSize(50, 50);
-		borrar.setLocation(90, 100);
 		borrar.setFont(calculadoraFont);
-		borrar.setLayout(null);
 		borrar.setBackground(new Color(61, 61, 61));
 		borrar.setForeground(Color.white);
 		borrar.setBorderPainted(false);
 		panelGrid.add(borrar);
 		
 		JButton espacio1 = new JButton();
-		espacio1.setSize(50, 50);
-		espacio1.setLocation(90, 100);
 		espacio1.setFont(calculadoraFont);
-		espacio1.setLayout(null);
 		espacio1.setBackground(new Color(61, 61, 61));
 		espacio1.setForeground(Color.white);
 		espacio1.setBorderPainted(false);
 		panelGrid.add(espacio1);
 		
 		JButton espacio2 = new JButton();
-		espacio2.setSize(50, 50);
-		espacio2.setLocation(90, 100);
 		espacio2.setFont(calculadoraFont);
-		espacio2.setLayout(null);
 		espacio2.setBackground(new Color(61, 61, 61));
 		espacio2.setForeground(Color.white);
 		espacio2.setBorderPainted(false);
 		panelGrid.add(espacio2);
 		
 		JButton espacio3 = new JButton();
-		espacio3.setSize(50, 50);
-		espacio3.setLocation(90, 100);
 		espacio3.setFont(calculadoraFont);
-		espacio3.setLayout(null);
 		espacio3.setBackground(new Color(61, 61, 61));
 		espacio3.setForeground(Color.white);
 		espacio3.setBorderPainted(false);
@@ -463,40 +496,28 @@ public class Ventana extends JFrame
 		// Segunda fila
 		
 		JButton siete = new JButton("7");
-		siete.setSize(50, 50);
-		siete.setLocation(90, 100);
 		siete.setFont(calculadoraFont);
-		siete.setLayout(null);
 		siete.setBackground(new Color(31, 31, 15));
 		siete.setForeground(Color.white);
 		siete.setBorderPainted(false);
 		panelGrid.add(siete);
 		
 		JButton ocho = new JButton("8");
-		ocho.setSize(50, 50);
-		ocho.setLocation(90, 100);
 		ocho.setFont(calculadoraFont);
-		ocho.setLayout(null);
 		ocho.setBackground(new Color(31, 31, 15));
 		ocho.setForeground(Color.white);
 		ocho.setBorderPainted(false);
 		panelGrid.add(ocho);
 		
 		JButton nueve = new JButton("9");
-		nueve.setSize(50, 50);
-		nueve.setLocation(90, 100);
 		nueve.setFont(calculadoraFont);
-		nueve.setLayout(null);
 		nueve.setBackground(new Color(31, 31, 15));
 		nueve.setForeground(Color.white);
 		nueve.setBorderPainted(false);
 		panelGrid.add(nueve);
 		
 		JButton division = new JButton("/");
-		division.setSize(50, 50);
-		division.setLocation(90, 100);
 		division.setFont(calculadoraFont);
-		division.setLayout(null);
 		division.setBackground(new Color(115, 76, 8));
 		division.setForeground(Color.white);
 		division.setBorderPainted(false);
@@ -505,40 +526,28 @@ public class Ventana extends JFrame
 		// Tercera fila
 		
 		JButton cuatro = new JButton("4");
-		cuatro.setSize(50, 50);
-		cuatro.setLocation(90, 100);
 		cuatro.setFont(calculadoraFont);
-		cuatro.setLayout(null);
 		cuatro.setBackground(new Color(31, 31, 15));
 		cuatro.setForeground(Color.white);
 		cuatro.setBorderPainted(false);
 		panelGrid.add(cuatro);
 		
 		JButton cinco = new JButton("5");
-		cinco.setSize(50, 50);
-		cinco.setLocation(90, 100);
 		cinco.setFont(calculadoraFont);
-		cinco.setLayout(null);
 		cinco.setBackground(new Color(31, 31, 15));
 		cinco.setForeground(Color.white);
 		cinco.setBorderPainted(false);
 		panelGrid.add(cinco);
 		
 		JButton seis = new JButton("6");
-		seis.setSize(50, 50);
-		seis.setLocation(90, 100);
 		seis.setFont(calculadoraFont);
-		seis.setLayout(null);
 		seis.setBackground(new Color(31, 31, 15));
 		seis.setForeground(Color.white);
 		seis.setBorderPainted(false);
 		panelGrid.add(seis);
 		
 		JButton multiplicacion = new JButton("*");
-		multiplicacion.setSize(50, 50);
-		multiplicacion.setLocation(90, 100);
 		multiplicacion.setFont(calculadoraFont);
-		multiplicacion.setLayout(null);
 		multiplicacion.setBackground(new Color(115, 76, 8));
 		multiplicacion.setForeground(Color.white);
 		multiplicacion.setBorderPainted(false);
@@ -547,40 +556,28 @@ public class Ventana extends JFrame
 		// Cuarta fila
 		
 		JButton uno = new JButton("1");
-		uno.setSize(50, 50);
-		uno.setLocation(90, 100);
 		uno.setFont(calculadoraFont);
-		uno.setLayout(null);
 		uno.setBackground(new Color(31, 31, 15));
 		uno.setForeground(Color.white);
 		uno.setBorderPainted(false);
 		panelGrid.add(uno);
 		
 		JButton dos = new JButton("2");
-		dos.setSize(50, 50);
-		dos.setLocation(90, 100);
 		dos.setFont(calculadoraFont);
-		dos.setLayout(null);
 		dos.setBackground(new Color(31, 31, 15));
 		dos.setForeground(Color.white);
 		dos.setBorderPainted(false);
 		panelGrid.add(dos);
 		
 		JButton tres = new JButton("3");
-		tres.setSize(50, 50);
-		tres.setLocation(90, 100);
 		tres.setFont(calculadoraFont);
-		tres.setLayout(null);
 		tres.setBackground(new Color(31, 31, 15));
 		tres.setForeground(Color.white);
 		tres.setBorderPainted(false);
 		panelGrid.add(tres);
 		
 		JButton menos = new JButton("-");
-		menos.setSize(50, 50);
-		menos.setLocation(90, 100);
 		menos.setFont(calculadoraFont);
-		menos.setLayout(null);
 		menos.setBackground(new Color(115, 76, 8));
 		menos.setForeground(Color.white);
 		menos.setBorderPainted(false);
@@ -589,40 +586,28 @@ public class Ventana extends JFrame
 		// Última fila
 		
 		JButton cero = new JButton("0");
-		cero.setSize(50, 50);
-		cero.setLocation(90, 100);
 		cero.setFont(calculadoraFont);
-		cero.setLayout(null);
 		cero.setBackground(new Color(31, 31, 15));
 		cero.setForeground(Color.white);
 		cero.setBorderPainted(false);
 		panelGrid.add(cero);
 		
 		JButton decimal = new JButton(".");
-		decimal.setSize(50, 50);
-		decimal.setLocation(90, 100);
 		decimal.setFont(calculadoraFont);
-		decimal.setLayout(null);
 		decimal.setBackground(new Color(31, 31, 15));
 		decimal.setForeground(Color.white);
 		decimal.setBorderPainted(false);
 		panelGrid.add(decimal);
 		
 		JButton igual = new JButton("=");
-		igual.setSize(50, 50);
-		igual.setLocation(90, 100);
 		igual.setFont(calculadoraFont);
-		igual.setLayout(null);
 		igual.setBackground(new Color(115, 76, 8));
 		igual.setForeground(Color.white);
 		igual.setBorderPainted(false);
 		panelGrid.add(igual);
 		
 		JButton mas = new JButton("+");
-		mas.setSize(50, 50);
-		mas.setLocation(90, 100);
 		mas.setFont(calculadoraFont);
-		mas.setLayout(null);
 		mas.setBackground(new Color(115, 76, 8));
 		mas.setForeground(Color.white);
 		mas.setBorderPainted(false);
@@ -632,6 +617,7 @@ public class Ventana extends JFrame
 		panel.revalidate();
 		return panel;
 	}
+	
 	
 	public JPanel tablaRegistros()
 	{
@@ -741,6 +727,141 @@ public class Ventana extends JFrame
 		scrollPane.setLocation(30, 150);
 		scrollPane.setSize(920, 500);
 		panel.add(scrollPane);
+		
+		panel.revalidate();
+		return panel;
+	}
+	
+	public JPanel interes() 
+	{
+		// Size de ventana recomendada: ((500, 500) o si tiene un JMenuBar: (500, 530))
+		
+		JPanel panel = new JPanel();
+		panel.setLocation(0, 0);
+		panel.setSize(this.WIDTH, this.HEIGHT);
+		panel.setBackground(Color.white);
+		panel.setLayout(new BorderLayout(10, 10));
+		
+		JPanel calcular = new JPanel();
+		calcular.setLayout(new BorderLayout(10, 10));
+		calcular.setBackground(new Color(114, 240, 103));
+		calcular.setOpaque(true);
+		calcular.setBorder(BorderFactory.createMatteBorder(10, 20, 10, 20, Color.white));
+		panel.add(calcular, BorderLayout.CENTER);
+		
+		JPanel calcularGrid = new JPanel();
+		calcularGrid.setLayout(new GridLayout(4, 2, 10, 10));
+		calcularGrid.setBackground(new Color(114, 240, 103));
+		calcular.add(calcularGrid);
+		
+		JPanel monto = new JPanel();
+		monto.setLayout(new GridLayout(2, 2, 10, 30));
+		monto.setBackground(new Color(237, 139, 135));
+		monto.setOpaque(true);
+		monto.setBorder(BorderFactory.createMatteBorder(10, 20, 40, 20, Color.white));
+		panel.add(monto, BorderLayout.SOUTH);
+		
+		
+		// JLabels
+		
+		JLabel tituloInteres = new JLabel("Interés");
+		tituloInteres.setFont(new Font("Cambria", Font.ITALIC, 28));
+		tituloInteres.setForeground(Color.red);
+		tituloInteres.setHorizontalAlignment(JLabel.LEFT);
+		tituloInteres.setBorder(BorderFactory.createMatteBorder(0, 20, 0, 0, Color.white));
+		panel.add(tituloInteres, BorderLayout.NORTH);
+		
+		JLabel labelCalcular = new JLabel("Calcular interés");
+		labelCalcular.setFont(new Font("Cambria", Font.BOLD, 20));
+		labelCalcular.setHorizontalAlignment(JLabel.LEFT);
+		calcular.add(labelCalcular, BorderLayout.NORTH);
+		
+		// Desde aquí, se van a ir implementando los elementos de calcularGrid
+		
+		// Fila 1
+		
+		JLabel labelCapital = new JLabel("Capital:");
+		labelCapital.setFont(mini);
+		labelCapital.setHorizontalAlignment(JLabel.CENTER);
+		labelCapital.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
+		calcularGrid.add(labelCapital);
+		
+		JTextField capital = new JTextField("1500");
+		capital.setBorder(BorderFactory.createMatteBorder(10, 0, 10, 50, new Color(114, 240, 103)));
+		calcularGrid.add(capital);
+		
+		// Fila 2
+		
+		JLabel labelTiempo = new JLabel("Tiempo:");
+		labelTiempo.setFont(mini);
+		labelTiempo.setHorizontalAlignment(JLabel.CENTER);
+		labelTiempo.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 10));
+		calcularGrid.add(labelTiempo);
+		
+		JTextField tiempo = new JTextField("2");
+		tiempo.setBorder(BorderFactory.createMatteBorder(10, 0, 10, 50, new Color(114, 240, 103)));
+		calcularGrid.add(tiempo);
+		
+		// Fila 3
+		
+		JLabel labelTasa = new JLabel("Tasa interés:");
+		labelTasa.setFont(mini);
+		labelTasa.setHorizontalAlignment(JLabel.CENTER);
+		labelTasa.setBorder(BorderFactory.createEmptyBorder(10, 45, 10, 10));
+		calcularGrid.add(labelTasa);
+				
+		JTextField tasa = new JTextField("0.1");
+		tasa.setBorder(BorderFactory.createMatteBorder(10, 0, 10, 50, new Color(114, 240, 103)));
+		calcularGrid.add(tasa);
+		
+		// Fila 4
+		
+		// JButtons
+		
+		JButton buttonCalcular = new JButton("Calcular");
+		buttonCalcular.setFont(mini);
+		buttonCalcular.setBorder(BorderFactory.createMatteBorder(5, 100, 5, 5, new Color(114, 240, 103)));
+		buttonCalcular.setBackground(Color.DARK_GRAY);
+		buttonCalcular.setForeground(Color.white);
+		buttonCalcular.setIcon(new ImageIcon(getClass().getResource("images/calcular.png")));
+		calcularGrid.add(buttonCalcular);
+		
+		JButton buttonCancelar = new JButton("Cancelar");
+		buttonCancelar.setFont(mini);
+		buttonCancelar.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 100, new Color(114, 240, 103)));
+		buttonCancelar.setBackground(Color.DARK_GRAY);
+		buttonCancelar.setForeground(Color.white);
+		buttonCancelar.setIcon(new ImageIcon(getClass().getResource("images/cancelar.png")));
+		calcularGrid.add(buttonCancelar);
+		
+		// CalcularGrid terminado.
+		
+		
+		// A partir de este punto ponemos los componentes del panel monto
+		
+		// Fila 1
+		
+		JLabel labelInteres = new JLabel("Interés:");
+		labelInteres.setFont(mini);
+		labelInteres.setHorizontalAlignment(JLabel.CENTER);
+		labelInteres.setBorder(BorderFactory.createEmptyBorder(10, 25, 0, 0));
+		monto.add(labelInteres);
+		
+		JTextField textInteres = new JTextField("315.0000000000002");
+		textInteres.setBorder(BorderFactory.createMatteBorder(10, 0, 3, 50, new Color(237, 139, 135)));
+		monto.add(textInteres);
+		
+		// Fila 2
+		
+		JLabel labelMonto = new JLabel("Monto:");
+		labelMonto.setFont(mini);
+		labelMonto.setHorizontalAlignment(JLabel.CENTER);
+		labelMonto.setBorder(BorderFactory.createEmptyBorder(10, 30, 14, 10));
+		monto.add(labelMonto);
+		
+		JTextField textMonto = new JTextField("1815.0000000000000002");
+		textMonto.setBorder(BorderFactory.createMatteBorder(3, 0, 10, 50, new Color(237, 139, 135)));
+		monto.add(textMonto);
 		
 		panel.revalidate();
 		return panel;
