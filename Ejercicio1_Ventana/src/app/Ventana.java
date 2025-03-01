@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -45,6 +46,7 @@ public class Ventana extends JFrame
 		this.setSize(500, 530);
 		this.setTitle(title);
 		this.setLocationRelativeTo(null);
+		this.setIconImage(new ImageIcon(getClass().getResource("images/app.png")).getImage());
 		
 		this.setMinimumSize(new Dimension(400, 400));
 		
