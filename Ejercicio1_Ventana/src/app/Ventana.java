@@ -868,4 +868,36 @@ public class Ventana extends JFrame
 		panel.revalidate();
 		return panel;
 	}
+
+	public void paint(Graphics g)
+	{
+		super.paint(g);
+		
+		Graphics2D g2 = (Graphics2D) g;
+		
+		g2.setColor(Color.red);
+		g2.fillRect(100, 100, 50, 50);
+		
+		g2.setColor(Color.blue);
+		g2.fillRoundRect(200, 200, 50, 50, 10, 10);
+		
+		g2.setColor(Color.black);
+		g2.setStroke(new BasicStroke(10));
+		g2.drawLine(100, 100, 400, 400);
+		
+		g2.setColor(Color.cyan);
+		g2.fillOval(50, 200, 50, 50);
+		
+		g2.setColor(Color.orange);
+		g2.drawArc(300, 50, 50, 50, 230, 90);	
+		g2.fillArc(200, 400, 50, 50, 0, 150);
+		
+		g2.setColor(Color.magenta);
+		g2.drawString("hola", 100, 350);
+		
+		int [] xs = {100, 100, 300};
+		int [] ys = {100, 200, 400};
+		
+		g2.drawPolygon(xs, ys, 3);
+	}
 }
