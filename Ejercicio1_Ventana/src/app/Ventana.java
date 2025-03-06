@@ -1,9 +1,13 @@
+
 package app;
+import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
@@ -43,7 +47,7 @@ public class Ventana extends JFrame
 	public Ventana(String title)
 	{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(500, 530);
+		this.setSize(800, 830);
 		this.setTitle(title);
 		this.setLocationRelativeTo(null);
 		this.setIconImage(new ImageIcon(getClass().getResource("images/app.png")).getImage());
@@ -94,7 +98,7 @@ public class Ventana extends JFrame
 		// this.add(register());
 		// this.add(calculadora());
 		// this.add(tablaRegistros());
-		this.add(interes());
+		// this.add(interes());
 		this.repaint();
 		this.setVisible(true);
 	}
@@ -867,5 +871,152 @@ public class Ventana extends JFrame
 		
 		panel.revalidate();
 		return panel;
+	}
+
+	public void paint(Graphics g)
+	{
+		super.paint(g);
+		
+		Graphics2D g2 = (Graphics2D) g;
+		
+		
+		// Cielo
+		
+		g2.setColor(new Color(31, 196, 237));
+		g2.fillRect(0, 0, 800, 830);
+		
+		
+		// Cerca
+		
+		g2.setColor(new Color(176, 130, 32));
+		g2.fillRect(0, 450, 800, 100);
+		
+		g2.setColor(new Color(237, 175, 43));
+		g2.fillRect(20, 400, 60, 250);
+		g2.fillRect(100, 400, 60, 250);
+		g2.fillRect(660, 400, 60, 250);
+		g2.fillRect(740, 400, 60, 250);
+		
+		
+		int [] picoCercaX1 = {20, 50, 80};
+		int [] picoCerca = {400, 350, 400};
+		
+		g2.fillPolygon(picoCercaX1, picoCerca, 3);
+		
+		
+		int [] picoCercaX2 = {100, 130, 160};
+		
+		g2.fillPolygon(picoCercaX2, picoCerca, 3);
+		
+		
+		int [] picoCercaX3 = {660, 690, 720};
+		
+		g2.fillPolygon(picoCercaX3, picoCerca, 3);
+		
+		
+		int [] picoCercaX4 = {740, 770, 800};
+		
+		g2.fillPolygon(picoCercaX4, picoCerca, 3);
+		
+		
+		// Pared
+		
+		g2.setColor(new Color(234, 237, 133));
+		g2.fillRect(150, 300, 500, 300);
+		
+		
+		int [] sombraParedX = {150, 650, 650};
+		int [] sombraParedY = {300, 400, 300};
+		
+		g2.setColor(new Color(153, 156, 89));
+		g2.fillPolygon(sombraParedX, sombraParedY, 3);
+		
+		
+		int [] sombraVentanaX = {440, 650, 650};
+		int [] sombraVentanaY = {478, 525, 478};
+		
+		g2.setColor(new Color(153, 156, 89));
+		g2.fillPolygon(sombraVentanaX, sombraVentanaY, 3);
+		
+		
+		g2.setColor(new Color(93, 94, 52));
+		g2.setStroke(new BasicStroke(5));
+		g2.drawLine(150, 575, 647, 575);
+		g2.drawLine(150, 525, 647, 525);
+		g2.drawLine(150, 475, 647, 475);
+		g2.drawLine(150, 425, 647, 425);
+		g2.drawLine(150, 375, 647, 375);
+		g2.drawLine(150, 325, 647, 325);
+		
+		
+		// Puerta
+		
+		g2.setColor(new Color(102, 80, 44));
+		g2.fillRect(176, 315, 150, 330);
+		
+		g2.setColor(new Color(138, 93, 21));
+		g2.fillRect(185, 330, 130, 310);
+		
+		g2.setColor(Color.white);
+		g2.fillOval(285, 460, 20, 20);
+		
+		
+		// Ventana
+		
+		g2.setColor(new Color(222, 24, 41));
+		g2.fillRect(450, 325, 150, 150);
+		
+		g2.setColor(Color.white);
+		g2.fillRect(460, 335, 60, 60);
+		g2.fillRect(530, 335, 60, 60);
+		g2.fillRect(460, 405, 60, 60);
+		g2.fillRect(530, 405, 60, 60);
+		
+		g2.setColor(Color.darkGray);
+		g2.fillRect(440, 470, 170, 20);
+		
+		// Suelo
+		
+		g2.setColor(Color.gray);
+		g2.fillRect(125, 600, 550, 40);
+		
+		g2.setColor(new Color(13, 99, 21));
+		g2.fillRect(0, 640, 800, 20);
+		
+		g2.setColor(new Color(22, 171, 36));
+		g2.fillRect(0, 660, 800, 50);
+		
+		g2.setColor(new Color(237, 230, 135));
+		g2.fillRect(0, 710, 800, 40);
+		
+		g2.setColor(new Color(82, 66, 35));
+		g2.fillRect(0, 750, 800, 80);
+		
+		
+		// Chimenea
+		
+		g2.setColor(Color.gray);
+		g2.fillRect(525, 150, 80, 150);
+		
+		
+		int [] sombraChimeneaX = {520, 605, 605};
+		int [] sombraChimeneaY = {160, 160, 190};
+		
+		g2.setColor(Color.darkGray);
+		g2.fillPolygon(sombraChimeneaX, sombraChimeneaY, 3);
+		
+		
+		g2.setColor(new Color(102, 102, 102));
+		g2.fillRect(512, 120, 105, 40);
+		
+		
+		// Techo
+		
+		int [] techoX = {70, 300, 725};
+		int [] techoY = {300, 50, 300};
+		
+		g2.setColor(Color.red);
+		g2.fillPolygon(techoX, techoY, 3);
+		
 	}
 }
