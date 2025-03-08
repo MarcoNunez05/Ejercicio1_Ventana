@@ -6,7 +6,8 @@ public class Main {
 	{
 		// TODO Auto-generated method stub
 		
-		Ventana ventana = new Ventana("Ventana");
+		// Ventana ventana = new Ventana("Ventana");
+		VentanaMarioBros3 ventanaMario3 = new VentanaMarioBros3("Super Mario Bros 3.");
 		
 	}
 
