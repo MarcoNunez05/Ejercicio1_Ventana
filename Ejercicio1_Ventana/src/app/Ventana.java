@@ -26,6 +26,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
@@ -49,7 +50,7 @@ public class Ventana extends JFrame
 	public Ventana(String title)
 	{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(500, 830);
+		this.setSize(800, 730);
 		this.setTitle(title);
 		this.setLocationRelativeTo(null);
 		this.setIconImage(new ImageIcon(getClass().getResource("images/app.png")).getImage());
@@ -96,8 +97,8 @@ public class Ventana extends JFrame
 		
 		// Añadimos el panel
 		
-		// this.add(login());
-		this.add(register());
+		this.add(login());
+		// this.add(register());
 		// this.add(calculadora());
 		// this.add(tablaRegistros());
 		// this.add(interes());
@@ -274,7 +275,13 @@ public class Ventana extends JFrame
 				if (password.getPassword().length < 6 || pass.trim().isEmpty())
 					password.setBorder(BorderFactory.createLineBorder(Color.red, 5));
 				else
-					password.setBorder(BorderFactory.createLineBorder(Color.green, 5));				
+					password.setBorder(BorderFactory.createLineBorder(Color.green, 5));			
+				
+				
+				if ((nombre.getText().equals("mnunez_23@alu.uabcs.mx") || nombre.getText().equals("MarcoNunez")) && pass.equals("pepe12"))
+					JOptionPane.showMessageDialog(panelAfuera, "Bienvenido de vuelta, Marco!", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
+				else
+					JOptionPane.showMessageDialog(panelAfuera, "Nombre de usuario o contraseña incorrectos.", "Datos incorrectos", JOptionPane.ERROR_MESSAGE);
 			}
 				
 		});
