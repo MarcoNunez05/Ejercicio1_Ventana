@@ -1,1078 +1,405 @@
-
 package app;
-import java.awt.BasicStroke;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JRadioButton;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.border.LineBorder;
-import javax.swing.ImageIcon;
-
-public class Ventana extends JFrame 
-{
-	Font titulo = new Font("Cambria", Font.BOLD, 32);
-	Font subtitulo = new Font("Cambria Math", Font.PLAIN, 20);
-	Font mini = new Font("Cambria Math", Font.PLAIN, 14);
-	
-	Font calculadoraFontResultado = new Font("Cambria", Font.PLAIN, 48);
-	Font calculadoraFont = new Font("Cambria", Font.PLAIN, 28);
-	
-	public Ventana(String title)
-	{
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(500, 830);
-		this.setTitle(title);
-		this.setLocationRelativeTo(null);
-		this.setIconImage(new ImageIcon(getClass().getResource("images/app.png")).getImage());
-		
-		this.setMinimumSize(new Dimension(400, 400));
-		
-		
-		// JMenuBar, JMenu y JMenuItem
-		
-		JMenuBar barra = new JMenuBar();
-		
-		
-		JMenu archivo = new JMenu("Archivo");
-		
-		
-		JMenuItem nuevo = new JMenuItem("Nuevo");
-		nuevo.setIcon(new ImageIcon(getClass().getResource("images/plus.png")));
-		
-		JMenuItem guardar = new JMenuItem("Guardar");
-		guardar.setIcon(new ImageIcon(getClass().getResource("images/save.png")));
-		
-		JMenuItem abrir = new JMenuItem("Abrir");
-		abrir.setIcon(new ImageIcon(getClass().getResource("images/openFolder.png")));
-		
-		archivo.add(nuevo);
-		archivo.add(guardar);
-		archivo.add(abrir);
-		
-		
-		JMenu ayuda = new JMenu("Ayuda");
-		
-		JRadioButtonMenuItem manual = new JRadioButtonMenuItem("Manual de usuario");
-		JCheckBoxMenuItem soporte = new JCheckBoxMenuItem("Soporte");
-		
-		ayuda.add(manual);
-		ayuda.add(soporte);	
-		
-		
-		barra.add(archivo);
-		barra.add(ayuda);
-		
-		this.setJMenuBar(barra);
-		
-		
-		// Añadimos el panel
-		
-		// this.add(login());
-		this.add(register());
-		// this.add(calculadora());
-		// this.add(tablaRegistros());
-		// this.add(interes());
-		this.repaint();
-		this.setVisible(true);
-	}
-	
-	public JPanel login()
-	{
-		// Size de ventana recomendada: ((800, 700) o si tiene un JMenuBar: (800, 730))
-		
-		JPanel panelAfuera = new JPanel();
-		panelAfuera.setLocation(0, 0);
-		panelAfuera.setSize(this.WIDTH, this.HEIGHT);
-		panelAfuera.setOpaque(true);
-		panelAfuera.setBackground(new Color(61, 98, 219));
-		panelAfuera.setLayout(null);
-		
-		JPanel panelAdentro = new JPanel();
-		panelAdentro.setLocation(160, 90);
-		panelAdentro.setSize(470, 450);
-		panelAdentro.setOpaque(true);
-		panelAdentro.setLayout(null);
-		panelAdentro.setBackground(Color.white);
-		panelAdentro.setBorder(new LineBorder(new Color(16, 47, 125), 6));
-		
-		
-		// JLabels
-		
-		JLabel bienvenida = new JLabel("Bienvenido/a");
-		bienvenida.setSize(210, 40);
-		bienvenida.setLocation(285, 10);
-		bienvenida.setBackground(new Color(43, 107, 217));
-		bienvenida.setForeground(Color.white);
-		bienvenida.setOpaque(true);
-		bienvenida.setFont(titulo);
-		bienvenida.setHorizontalAlignment(JLabel.CENTER);
-		panelAfuera.add(bienvenida);
-		
-		JLabel accede = new JLabel("Accede con tu cuenta");
-		accede.setSize(320, 40);
-		accede.setLocation(75, 15);
-		accede.setFont(titulo);
-		accede.setHorizontalAlignment(JLabel.CENTER);
-		panelAdentro.add(accede);
-		
-		JLabel labelNombre = new JLabel("E-mail o nombre de usuario:");
-		labelNombre.setSize(250, 20);
-		labelNombre.setLocation(90, 100);
-		labelNombre.setFont(subtitulo);
-		labelNombre.setHorizontalAlignment(JLabel.LEFT);
-		panelAdentro.add(labelNombre);
-		
-		JLabel labelPassword = new JLabel("Contraseña:");
-		labelPassword.setSize(180, 20);
-		labelPassword.setLocation(90, 210);
-		labelPassword.setFont(subtitulo);
-		labelPassword.setHorizontalAlignment(JLabel.LEFT);
-		panelAdentro.add(labelPassword);
-		
-		JLabel olvidar = new JLabel("¿Olvidó su contraseña?");
-		olvidar.setSize(150, 20);
-		olvidar.setLocation(250, 290);
-		olvidar.setFont(mini);
-		olvidar.setForeground(new Color(78, 118, 245));
-		olvidar.setHorizontalAlignment(JLabel.LEFT);
-		panelAdentro.add(olvidar);
-		
-		JLabel labelRegistro = new JLabel("¿No tienes una cuenta?");
-		labelRegistro.setSize(150, 20);
-		labelRegistro.setLocation(325, 560);
-		labelRegistro.setFont(mini);
-		labelRegistro.setForeground(Color.white);
-		labelRegistro.setHorizontalAlignment(JLabel.LEFT);
-		panelAfuera.add(labelRegistro);
-		
-		
-		// JTextField
-		
-		JTextField nombre = new JTextField();
-		nombre.setSize(300, 40);
-		nombre.setLocation(90, 130);
-		nombre.setLayout(null);
-		nombre.setBorder(new LineBorder(Color.black, 3, true));
-		panelAdentro.add(nombre);
-		
-		
-		
-		// JPasswordField
-		
-		JPasswordField password = new JPasswordField();
-		password.setSize(300, 40);
-		password.setLocation(90, 240);
-		password.setLayout(null);
-		password.setBorder(new LineBorder(Color.black, 3, true));
-		panelAdentro.add(password);
-		
-		
-		// JCheckBox
-		
-		JCheckBox recordar = new JCheckBox("Recordarme");
-		recordar.setSize(120, 20);
-		recordar.setLocation(90, 290);
-		recordar.setOpaque(false);
-		recordar.setLayout(null);
-		recordar.setFont(mini);
-		panelAdentro.add(recordar);
-		
-		
-		// JButton
-		
-		JButton acceder = new JButton("Acceder");
-		acceder.setSize(130, 50);
-		acceder.setLocation(170, 350);
-		acceder.setBackground(new Color(11, 156, 154));
-		acceder.setForeground(Color.white);
-		acceder.setFont(subtitulo);
-		acceder.setLayout(null);
-		acceder.setBorder(new LineBorder(Color.black, 3, true));
-		panelAdentro.add(acceder);
-		
-		JButton registrar = new JButton("Regístrate");
-		registrar.setSize(130, 50);
-		registrar.setLocation(330, 590);
-		registrar.setBackground(new Color(11, 60, 219));
-		registrar.setForeground(Color.white);
-		registrar.setFont(subtitulo);
-		registrar.setLayout(null);
-		registrar.setBorder(new LineBorder(Color.black, 3, true));
-		panelAfuera.add(registrar);
-		
-		// Le ponemos un evento de Mouse a los botones
-		
-		acceder.addMouseListener(new MouseAdapter() 
-		{
-			public void mouseEntered(MouseEvent e)
-			{
-				acceder.setBackground(new Color(97, 186, 186));
-			}
-			
-			public void mouseExited(MouseEvent e)
-			{
-				acceder.setBackground(new Color(11, 156, 154));
-			}
-		});
-		
-		registrar.addMouseListener(new MouseAdapter() 
-		{
-			public void mouseEntered(MouseEvent e)
-			{
-				registrar.setBackground(new Color(41, 83, 217));
-			}
-			
-			public void mouseExited(MouseEvent e)
-			{
-				registrar.setBackground(new Color(11, 60, 219));
-			}
-		});
-		
-		// Le ponemos un ActionListener a los botones
-		
-		acceder.addActionListener(new ActionListener()
-		{
-			@Override
-			public void actionPerformed(ActionEvent e) 
-			{
-				String pass = new String(password.getPassword());
-				
-				if (nombre.getText().equals("") || nombre.getText().trim().isEmpty())
-					nombre.setBorder(BorderFactory.createLineBorder(Color.red, 5));
-				else
-					nombre.setBorder(BorderFactory.createLineBorder(Color.green, 5));
-				
-				if (password.getPassword().length < 6 || pass.trim().isEmpty())
-					password.setBorder(BorderFactory.createLineBorder(Color.red, 5));
-				else
-					password.setBorder(BorderFactory.createLineBorder(Color.green, 5));				
-			}
-				
-		});
-		
-		
-		// ImageIcon
-		
-		JLabel imagenUsuario = new JLabel(new ImageIcon(getClass().getResource("images/user.png")));
-		imagenUsuario.setSize(32, 32);
-		imagenUsuario.setLocation(50, 133);
-		panelAdentro.add(imagenUsuario);
-		
-		JLabel imagenClave = new JLabel(new ImageIcon(getClass().getResource("images/lock.png")));
-		imagenClave.setSize(32, 32);
-		imagenClave.setLocation(50, 242);
-		panelAdentro.add(imagenClave);
-		
-		JLabel imagenOjo = new JLabel(new ImageIcon(getClass().getResource("images/eye.png")));
-		imagenOjo.setSize(32, 32);
-		imagenOjo.setLocation(400, 244);
-		panelAdentro.add(imagenOjo);
-		
-
-		panelAdentro.revalidate();
-		
-		panelAfuera.add(panelAdentro);
-		
-		panelAfuera.revalidate();
-		return panelAfuera;
-	}
-	
-	
-	public JPanel register()
-	{
-		// Size de la ventana recomendada: ((500, 830) o si tiene un JMenuBar: (500, 830))
-		
-		JPanel panel = new JPanel();
-		panel.setLocation(0, 0);
-		panel.setSize(this.WIDTH, this.HEIGHT);
-		panel.setOpaque(true);
-		panel.setLayout(null);
-		panel.setBackground(new Color(152, 190, 250));
-		
-		// JLabels
-		
-		JLabel registro = new JLabel("Registro");
-		registro.setSize(160, 40);
-		registro.setLocation(160, 10);
-		registro.setBackground(new Color(83, 143, 237));
-		registro.setOpaque(true);
-		registro.setFont(titulo);
-		registro.setHorizontalAlignment(JLabel.CENTER);
-		panel.add(registro);
-		
-		JLabel labelNombre = new JLabel("Nombre de usuario:");
-		labelNombre.setSize(190, 30);
-		labelNombre.setLocation(165, 90);
-		labelNombre.setFont(subtitulo);
-		labelNombre.setHorizontalAlignment(JLabel.LEFT);
-		panel.add(labelNombre);
-		
-		JLabel labelBio = new JLabel("Escriba una breve biografía:");
-		labelBio.setSize(250, 30);
-		labelBio.setLocation(130, 190);
-		labelBio.setFont(subtitulo);
-		labelBio.setHorizontalAlignment(JLabel.LEFT);
-		panel.add(labelBio);
-		
-		JLabel labelPreferencia = new JLabel("Escoja sus preferencias:");
-		labelPreferencia.setSize(250, 30);
-		labelPreferencia.setLocation(150, 355);
-		labelPreferencia.setFont(subtitulo);
-		labelPreferencia.setHorizontalAlignment(JLabel.LEFT);
-		panel.add(labelPreferencia);
-		
-		JLabel labelTerminos = new JLabel("¿Usted acepta los términos?");
-		labelTerminos.setSize(250, 30);
-		labelTerminos.setLocation(130, 455);
-		labelTerminos.setFont(subtitulo);
-		labelTerminos.setHorizontalAlignment(JLabel.LEFT);
-		panel.add(labelTerminos);
-		
-		JLabel labelColonia = new JLabel("Elija su colonia:");
-		labelColonia.setSize(250, 30);
-		labelColonia.setLocation(175, 550);
-		labelColonia.setFont(subtitulo);
-		labelColonia.setHorizontalAlignment(JLabel.LEFT);
-		panel.add(labelColonia);
-		
-		
-		// JTextField
-		
-		JTextField nombre = new JTextField();
-		nombre.setSize(300, 30);
-		nombre.setLocation(90, 130);
-		nombre.setLayout(null);
-		panel.add(nombre);
-		
-		
-		// JTextArea
-		
-		JTextArea bio = new JTextArea();
-		bio.setSize(400, 100);
-		bio.setLocation(40, 230);
-		bio.setLayout(null);
-		panel.add(bio);
-		
-		
-		// JCheckBox
-		
-		JCheckBox dulces = new JCheckBox("Dulces");
-		dulces.setSize(80, 20);
-		dulces.setLocation(100, 395);
-		dulces.setOpaque(false);
-		dulces.setLayout(null);
-		dulces.setFont(mini);
-		panel.add(dulces);
-		
-		JCheckBox salado = new JCheckBox("Salado");
-		salado.setSize(80, 20);
-		salado.setLocation(210, 395);
-		salado.setOpaque(false);
-		salado.setLayout(null);
-		salado.setFont(mini);
-		panel.add(salado);
-		
-		JCheckBox saludable = new JCheckBox("Saludable");
-		saludable.setSize(100, 20);
-		saludable.setLocation(315, 395);
-		saludable.setOpaque(false);
-		saludable.setLayout(null);
-		saludable.setFont(mini);
-		panel.add(saludable);
-		
-		
-		// JRadioButton
-		
-		ButtonGroup terminos = new ButtonGroup();
-		
-		JRadioButton terms1 = new JRadioButton("Acepto los términos");
-		terms1.setLocation(80, 485);
-		terms1.setSize(150, 40);
-		terms1.setOpaque(false);
-		panel.add(terms1);
-		
-		JRadioButton terms2 = new JRadioButton("Rechazo los términos");
-		terms2.setLocation(260, 485);
-		terms2.setSize(180, 40);
-		terms2.setOpaque(false);
-		panel.add(terms2);
-		
-		terminos.add(terms1);
-		terminos.add(terms2);
-		
-		// JComboBox
-		
-		String [] coloniasDataSet = {"Centro", "Villas del encanto", "Pedregal", "Agua escondida", "Balandra"};
-		
-		JComboBox colonias = new JComboBox(coloniasDataSet);
-		colonias.setLocation(150, 590);
-		colonias.setSize(180, 40);
-		colonias.setLayout(null);
-		panel.add(colonias);
-		
-		
-		// JButton
-		
-		JButton registrarse = new JButton("Crear cuenta");
-		registrarse.setSize(300, 50);
-		registrarse.setLocation(90, 670);
-		registrarse.setFont(subtitulo);
-		registrarse.setLayout(null);
-		panel.add(registrarse);
-	
-		// Le ponemos un ActionListener
-		
-		registrarse.addActionListener(new ActionListener()  
-		{
-			@Override
-			public void actionPerformed(ActionEvent e) 
-			{
-				terms1.setBorderPainted(true);
-				dulces.setBorderPainted(true);
-				
-				if (nombre.getText().equals("") || nombre.getText().trim().isEmpty())
-					nombre.setBorder(BorderFactory.createLineBorder(Color.red, 3));
-				else
-					nombre.setBorder(BorderFactory.createLineBorder(Color.green, 3));
-				
-				if (bio.getText().equals(""))
-					bio.setBorder(BorderFactory.createLineBorder(Color.red, 3));
-				else
-					bio.setBorder(BorderFactory.createLineBorder(Color.green, 3));
-				
-				if (dulces.isSelected() || salado.isSelected() || saludable.isSelected())
-					dulces.setBorder(BorderFactory.createLineBorder(Color.green, 3));
-				else
-					dulces.setBorder(BorderFactory.createLineBorder(Color.red, 3));
-				
-				if (terms1.isSelected())
-					terms1.setBorder(BorderFactory.createLineBorder(Color.green, 3));
-				else
-					terms1.setBorder(BorderFactory.createLineBorder(Color.red, 3));
-				
-			}
-			
-		});
-		
-		panel.revalidate();
-		return panel;
-	}
-	
-	
-	public JPanel calculadora()
-	{
-		// Size de la ventana recomendada: ((500, 500) o si tiene un JMenuBar: (500, 530))
-		
-		JPanel panel = new JPanel();
-		panel.setLocation(0, 0);
-		panel.setSize(this.WIDTH, this.HEIGHT);
-		panel.setOpaque(true);
-		panel.setLayout(new BorderLayout(10, 10));
-		panel.setBackground(new Color(15, 15, 3));
-		
-		// Creamos un segundo panel para ponerle un GridLayout y lo añadimos al panel principal
-		
-		JPanel panelGrid = new JPanel();
-		panelGrid.setLocation(20, 100);
-		panelGrid.setSize(450, 350);
-		panelGrid.setOpaque(false);
-		panelGrid.setLayout(new GridLayout(0, 4, 10, 10));
-		panel.add(panelGrid);
-		
-		
-		// JLabel
-		
-		JLabel resultado = new JLabel("192");
-		resultado.setBackground(new Color(74, 74, 66));
-		resultado.setForeground(Color.white);
-		resultado.setOpaque(true);
-		resultado.setFont(calculadoraFontResultado);
-		resultado.setHorizontalAlignment(JLabel.RIGHT);
-		panel.add(resultado, BorderLayout.NORTH);
-		
-		
-		// JButtons
-		// Todos los botones se pondrán en panelGrid.
-		// Los botones se van a ir añadiendo de izquierda a derecha.
-		
-		// Primera fila
-		
-		JButton borrar = new JButton("CE");
-		borrar.setFont(calculadoraFont);
-		borrar.setBackground(new Color(61, 61, 61));
-		borrar.setForeground(Color.white);
-		borrar.setBorderPainted(false);
-		panelGrid.add(borrar);
-		
-		JButton espacio1 = new JButton();
-		espacio1.setFont(calculadoraFont);
-		espacio1.setBackground(new Color(61, 61, 61));
-		espacio1.setForeground(Color.white);
-		espacio1.setBorderPainted(false);
-		panelGrid.add(espacio1);
-		
-		JButton espacio2 = new JButton();
-		espacio2.setFont(calculadoraFont);
-		espacio2.setBackground(new Color(61, 61, 61));
-		espacio2.setForeground(Color.white);
-		espacio2.setBorderPainted(false);
-		panelGrid.add(espacio2);
-		
-		JButton espacio3 = new JButton();
-		espacio3.setFont(calculadoraFont);
-		espacio3.setBackground(new Color(61, 61, 61));
-		espacio3.setForeground(Color.white);
-		espacio3.setBorderPainted(false);
-		panelGrid.add(espacio3);
-		
-		// Segunda fila
-		
-		JButton siete = new JButton("7");
-		siete.setFont(calculadoraFont);
-		siete.setBackground(new Color(31, 31, 15));
-		siete.setForeground(Color.white);
-		siete.setBorderPainted(false);
-		panelGrid.add(siete);
-		
-		JButton ocho = new JButton("8");
-		ocho.setFont(calculadoraFont);
-		ocho.setBackground(new Color(31, 31, 15));
-		ocho.setForeground(Color.white);
-		ocho.setBorderPainted(false);
-		panelGrid.add(ocho);
-		
-		JButton nueve = new JButton("9");
-		nueve.setFont(calculadoraFont);
-		nueve.setBackground(new Color(31, 31, 15));
-		nueve.setForeground(Color.white);
-		nueve.setBorderPainted(false);
-		panelGrid.add(nueve);
-		
-		JButton division = new JButton("/");
-		division.setFont(calculadoraFont);
-		division.setBackground(new Color(115, 76, 8));
-		division.setForeground(Color.white);
-		division.setBorderPainted(false);
-		panelGrid.add(division);
-		
-		// Tercera fila
-		
-		JButton cuatro = new JButton("4");
-		cuatro.setFont(calculadoraFont);
-		cuatro.setBackground(new Color(31, 31, 15));
-		cuatro.setForeground(Color.white);
-		cuatro.setBorderPainted(false);
-		panelGrid.add(cuatro);
-		
-		JButton cinco = new JButton("5");
-		cinco.setFont(calculadoraFont);
-		cinco.setBackground(new Color(31, 31, 15));
-		cinco.setForeground(Color.white);
-		cinco.setBorderPainted(false);
-		panelGrid.add(cinco);
-		
-		JButton seis = new JButton("6");
-		seis.setFont(calculadoraFont);
-		seis.setBackground(new Color(31, 31, 15));
-		seis.setForeground(Color.white);
-		seis.setBorderPainted(false);
-		panelGrid.add(seis);
-		
-		JButton multiplicacion = new JButton("*");
-		multiplicacion.setFont(calculadoraFont);
-		multiplicacion.setBackground(new Color(115, 76, 8));
-		multiplicacion.setForeground(Color.white);
-		multiplicacion.setBorderPainted(false);
-		panelGrid.add(multiplicacion);
-		
-		// Cuarta fila
-		
-		JButton uno = new JButton("1");
-		uno.setFont(calculadoraFont);
-		uno.setBackground(new Color(31, 31, 15));
-		uno.setForeground(Color.white);
-		uno.setBorderPainted(false);
-		panelGrid.add(uno);
-		
-		JButton dos = new JButton("2");
-		dos.setFont(calculadoraFont);
-		dos.setBackground(new Color(31, 31, 15));
-		dos.setForeground(Color.white);
-		dos.setBorderPainted(false);
-		panelGrid.add(dos);
-		
-		JButton tres = new JButton("3");
-		tres.setFont(calculadoraFont);
-		tres.setBackground(new Color(31, 31, 15));
-		tres.setForeground(Color.white);
-		tres.setBorderPainted(false);
-		panelGrid.add(tres);
-		
-		JButton menos = new JButton("-");
-		menos.setFont(calculadoraFont);
-		menos.setBackground(new Color(115, 76, 8));
-		menos.setForeground(Color.white);
-		menos.setBorderPainted(false);
-		panelGrid.add(menos);
-		
-		// Última fila
-		
-		JButton cero = new JButton("0");
-		cero.setFont(calculadoraFont);
-		cero.setBackground(new Color(31, 31, 15));
-		cero.setForeground(Color.white);
-		cero.setBorderPainted(false);
-		panelGrid.add(cero);
-		
-		JButton decimal = new JButton(".");
-		decimal.setFont(calculadoraFont);
-		decimal.setBackground(new Color(31, 31, 15));
-		decimal.setForeground(Color.white);
-		decimal.setBorderPainted(false);
-		panelGrid.add(decimal);
-		
-		JButton igual = new JButton("=");
-		igual.setFont(calculadoraFont);
-		igual.setBackground(new Color(115, 76, 8));
-		igual.setForeground(Color.white);
-		igual.setBorderPainted(false);
-		panelGrid.add(igual);
-		
-		JButton mas = new JButton("+");
-		mas.setFont(calculadoraFont);
-		mas.setBackground(new Color(115, 76, 8));
-		mas.setForeground(Color.white);
-		mas.setBorderPainted(false);
-		panelGrid.add(mas);
-		
-		
-		panel.revalidate();
-		return panel;
-	}
-	
-	
-	public JPanel tablaRegistros()
-	{
-		// Size de la ventana recomendada: (1000, 800)
-		
-		JPanel panel = new JPanel();
-		panel.setLocation(0, 0);
-		panel.setSize(this.WIDTH, this.HEIGHT);
-		panel.setOpaque(true);
-		panel.setLayout(null);
-		panel.setBackground(new Color(200, 180, 237));
-		
-				
-		// JLabels
-				
-		JLabel labelUsuarios = new JLabel("Usuarios");
-		labelUsuarios.setSize(160, 40);
-		labelUsuarios.setLocation(420, 10);
-		labelUsuarios.setBackground(new Color(153, 151, 247));
-		labelUsuarios.setOpaque(true);
-		labelUsuarios.setFont(titulo);
-		labelUsuarios.setHorizontalAlignment(JLabel.CENTER);
-		panel.add(labelUsuarios);
-		
-		JLabel totalUsuarios = new JLabel("Total de usuarios registrados: 100");
-		totalUsuarios.setSize(300, 40);
-		totalUsuarios.setLocation(350, 80);
-		totalUsuarios.setOpaque(true);
-		totalUsuarios.setFont(subtitulo);
-		totalUsuarios.setBorder(BorderFactory.createLineBorder(Color.black));
-		totalUsuarios.setHorizontalAlignment(JLabel.CENTER);
-		panel.add(totalUsuarios);
-		
-		
-		// JButtons
-		
-		JButton exportar = new JButton("Exportar");
-		exportar.setSize(150, 40);
-		exportar.setLocation(335, 670);
-		exportar.setFont(subtitulo);
-		exportar.setLayout(null);
-		panel.add(exportar);
-		
-		JButton agregar = new JButton("Añadir");
-		agregar.setSize(150, 40);
-		agregar.setLocation(510, 670);
-		agregar.setFont(subtitulo);
-		agregar.setLayout(null);
-		panel.add(agregar);
-		
-		
-		// JTable
-		
-		String[] nombreColumnas = {
-				"ID",
-				"Nombre",
-				"Correo Electrónico",
-				"Edad",
-				"Juego"
-				};
-		
-		Object[][] datos = {
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"},
-				{"ID", "Nombre", "Correo", "Edad", "Juego"}};
-					
-		
-		JTable tabla = new JTable(datos, nombreColumnas);
-		JScrollPane scrollPane = new JScrollPane(tabla);
-		scrollPane.setLocation(30, 150);
-		scrollPane.setSize(920, 500);
-		panel.add(scrollPane);
-		
-		panel.revalidate();
-		return panel;
-	}
-	
-	public JPanel interes() 
-	{
-		// Size de ventana recomendada: ((500, 500) o si tiene un JMenuBar: (500, 530))
-		
-		JPanel panel = new JPanel();
-		panel.setLocation(0, 0);
-		panel.setSize(this.WIDTH, this.HEIGHT);
-		panel.setBackground(Color.white);
-		panel.setLayout(new BorderLayout(10, 10));
-		
-		JPanel calcular = new JPanel();
-		calcular.setLayout(new BorderLayout(10, 10));
-		calcular.setBackground(new Color(114, 240, 103));
-		calcular.setOpaque(true);
-		calcular.setBorder(BorderFactory.createMatteBorder(10, 20, 10, 20, Color.white));
-		panel.add(calcular, BorderLayout.CENTER);
-		
-		JPanel calcularGrid = new JPanel();
-		calcularGrid.setLayout(new GridLayout(4, 2, 10, 10));
-		calcularGrid.setBackground(new Color(114, 240, 103));
-		calcular.add(calcularGrid);
-		
-		JPanel monto = new JPanel();
-		monto.setLayout(new GridLayout(2, 2, 10, 30));
-		monto.setBackground(new Color(237, 139, 135));
-		monto.setOpaque(true);
-		monto.setBorder(BorderFactory.createMatteBorder(10, 20, 40, 20, Color.white));
-		panel.add(monto, BorderLayout.SOUTH);
-		
-		
-		// JLabels
-		
-		JLabel tituloInteres = new JLabel("Interés");
-		tituloInteres.setFont(new Font("Cambria", Font.ITALIC, 28));
-		tituloInteres.setForeground(Color.red);
-		tituloInteres.setHorizontalAlignment(JLabel.LEFT);
-		tituloInteres.setBorder(BorderFactory.createMatteBorder(0, 20, 0, 0, Color.white));
-		panel.add(tituloInteres, BorderLayout.NORTH);
-		
-		JLabel labelCalcular = new JLabel("Calcular interés");
-		labelCalcular.setFont(new Font("Cambria", Font.BOLD, 20));
-		labelCalcular.setHorizontalAlignment(JLabel.LEFT);
-		calcular.add(labelCalcular, BorderLayout.NORTH);
-		
-		// Desde aquí, se van a ir implementando los elementos de calcularGrid
-		
-		// Fila 1
-		
-		JLabel labelCapital = new JLabel("Capital:");
-		labelCapital.setFont(mini);
-		labelCapital.setHorizontalAlignment(JLabel.CENTER);
-		labelCapital.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
-		calcularGrid.add(labelCapital);
-		
-		JTextField capital = new JTextField("1500");
-		capital.setBorder(BorderFactory.createMatteBorder(10, 0, 10, 50, new Color(114, 240, 103)));
-		calcularGrid.add(capital);
-		
-		// Fila 2
-		
-		JLabel labelTiempo = new JLabel("Tiempo:");
-		labelTiempo.setFont(mini);
-		labelTiempo.setHorizontalAlignment(JLabel.CENTER);
-		labelTiempo.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 10));
-		calcularGrid.add(labelTiempo);
-		
-		JTextField tiempo = new JTextField("2");
-		tiempo.setBorder(BorderFactory.createMatteBorder(10, 0, 10, 50, new Color(114, 240, 103)));
-		calcularGrid.add(tiempo);
-		
-		// Fila 3
-		
-		JLabel labelTasa = new JLabel("Tasa interés:");
-		labelTasa.setFont(mini);
-		labelTasa.setHorizontalAlignment(JLabel.CENTER);
-		labelTasa.setBorder(BorderFactory.createEmptyBorder(10, 45, 10, 10));
-		calcularGrid.add(labelTasa);
-				
-		JTextField tasa = new JTextField("0.1");
-		tasa.setBorder(BorderFactory.createMatteBorder(10, 0, 10, 50, new Color(114, 240, 103)));
-		calcularGrid.add(tasa);
-		
-		// Fila 4
-		
-		// JButtons
-		
-		JButton buttonCalcular = new JButton("Calcular");
-		buttonCalcular.setFont(mini);
-		buttonCalcular.setBorder(BorderFactory.createMatteBorder(5, 100, 5, 5, new Color(114, 240, 103)));
-		buttonCalcular.setBackground(Color.DARK_GRAY);
-		buttonCalcular.setForeground(Color.white);
-		buttonCalcular.setIcon(new ImageIcon(getClass().getResource("images/calcular.png")));
-		calcularGrid.add(buttonCalcular);
-		
-		JButton buttonCancelar = new JButton("Cancelar");
-		buttonCancelar.setFont(mini);
-		buttonCancelar.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 100, new Color(114, 240, 103)));
-		buttonCancelar.setBackground(Color.DARK_GRAY);
-		buttonCancelar.setForeground(Color.white);
-		buttonCancelar.setIcon(new ImageIcon(getClass().getResource("images/cancelar.png")));
-		calcularGrid.add(buttonCancelar);
-		
-		// CalcularGrid terminado.
-		
-		
-		// A partir de este punto ponemos los componentes del panel monto
-		
-		// Fila 1
-		
-		JLabel labelInteres = new JLabel("Interés:");
-		labelInteres.setFont(mini);
-		labelInteres.setHorizontalAlignment(JLabel.CENTER);
-		labelInteres.setBorder(BorderFactory.createEmptyBorder(10, 25, 0, 0));
-		monto.add(labelInteres);
-		
-		JTextField textInteres = new JTextField("315.0000000000002");
-		textInteres.setBorder(BorderFactory.createMatteBorder(10, 0, 3, 50, new Color(237, 139, 135)));
-		monto.add(textInteres);
-		
-		// Fila 2
-		
-		JLabel labelMonto = new JLabel("Monto:");
-		labelMonto.setFont(mini);
-		labelMonto.setHorizontalAlignment(JLabel.CENTER);
-		labelMonto.setBorder(BorderFactory.createEmptyBorder(10, 30, 14, 10));
-		monto.add(labelMonto);
-		
-		JTextField textMonto = new JTextField("1815.0000000000000002");
-		textMonto.setBorder(BorderFactory.createMatteBorder(3, 0, 10, 50, new Color(237, 139, 135)));
-		monto.add(textMonto);
-		
-		panel.revalidate();
-		return panel;
-	}
-
-	/* public void paint(Graphics g)
-	{
-		super.paint(g);
-		
-		Graphics2D g2 = (Graphics2D) g;
-		
-		
-		// Cielo
-		
-		g2.setColor(new Color(31, 196, 237));
-		g2.fillRect(0, 0, 800, 830);
-		
-		
-		// Cerca
-		
-		g2.setColor(new Color(176, 130, 32));
-		g2.fillRect(0, 450, 800, 100);
-		
-		g2.setColor(new Color(237, 175, 43));
-		g2.fillRect(20, 400, 60, 250);
-		g2.fillRect(100, 400, 60, 250);
-		g2.fillRect(660, 400, 60, 250);
-		g2.fillRect(740, 400, 60, 250);
-		
-		
-		int [] picoCercaX1 = {20, 50, 80};
-		int [] picoCerca = {400, 350, 400};
-		
-		g2.fillPolygon(picoCercaX1, picoCerca, 3);
-		
-		
-		int [] picoCercaX2 = {100, 130, 160};
-		
-		g2.fillPolygon(picoCercaX2, picoCerca, 3);
-		
-		
-		int [] picoCercaX3 = {660, 690, 720};
-		
-		g2.fillPolygon(picoCercaX3, picoCerca, 3);
-		
-		
-		int [] picoCercaX4 = {740, 770, 800};
-		
-		g2.fillPolygon(picoCercaX4, picoCerca, 3);
-		
-		
-		// Pared
-		
-		g2.setColor(new Color(234, 237, 133));
-		g2.fillRect(150, 300, 500, 300);
-		
-		
-		int [] sombraParedX = {150, 650, 650};
-		int [] sombraParedY = {300, 400, 300};
-		
-		g2.setColor(new Color(153, 156, 89));
-		g2.fillPolygon(sombraParedX, sombraParedY, 3);
-		
-		
-		int [] sombraVentanaX = {440, 650, 650};
-		int [] sombraVentanaY = {478, 525, 478};
-		
-		g2.setColor(new Color(153, 156, 89));
-		g2.fillPolygon(sombraVentanaX, sombraVentanaY, 3);
-		
-		
-		g2.setColor(new Color(93, 94, 52));
-		g2.setStroke(new BasicStroke(5));
-		g2.drawLine(150, 575, 647, 575);
-		g2.drawLine(150, 525, 647, 525);
-		g2.drawLine(150, 475, 647, 475);
-		g2.drawLine(150, 425, 647, 425);
-		g2.drawLine(150, 375, 647, 375);
-		g2.drawLine(150, 325, 647, 325);
-		
-		
-		// Puerta
-		
-		g2.setColor(new Color(102, 80, 44));
-		g2.fillRect(176, 315, 150, 330);
-		
-		g2.setColor(new Color(138, 93, 21));
-		g2.fillRect(185, 330, 130, 310);
-		
-		g2.setColor(Color.white);
-		g2.fillOval(285, 460, 20, 20);
-		
-		
-		// Ventana
-		
-		g2.setColor(new Color(222, 24, 41));
-		g2.fillRect(450, 325, 150, 150);
-		
-		g2.setColor(Color.white);
-		g2.fillRect(460, 335, 60, 60);
-		g2.fillRect(530, 335, 60, 60);
-		g2.fillRect(460, 405, 60, 60);
-		g2.fillRect(530, 405, 60, 60);
-		
-		g2.setColor(Color.darkGray);
-		g2.fillRect(440, 470, 170, 20);
-		
-		// Suelo
-		
-		g2.setColor(Color.gray);
-		g2.fillRect(125, 600, 550, 40);
-		
-		g2.setColor(new Color(13, 99, 21));
-		g2.fillRect(0, 640, 800, 20);
-		
-		g2.setColor(new Color(22, 171, 36));
-		g2.fillRect(0, 660, 800, 50);
-		
-		g2.setColor(new Color(237, 230, 135));
-		g2.fillRect(0, 710, 800, 40);
-		
-		g2.setColor(new Color(82, 66, 35));
-		g2.fillRect(0, 750, 800, 80);
-		
-		
-		// Chimenea
-		
-		g2.setColor(Color.gray);
-		g2.fillRect(525, 150, 80, 150);
-		
-		
-		int [] sombraChimeneaX = {520, 605, 605};
-		int [] sombraChimeneaY = {160, 160, 190};
-		
-		g2.setColor(Color.darkGray);
-		g2.fillPolygon(sombraChimeneaX, sombraChimeneaY, 3);
-		
-		
-		g2.setColor(new Color(102, 102, 102));
-		g2.fillRect(512, 120, 105, 40);
-		
-		
-		// Techo
-		
-		int [] techoX = {70, 300, 725};
-		int [] techoY = {300, 50, 300};
-		
-		g2.setColor(Color.red);
-		g2.fillPolygon(techoX, techoY, 3);
-		
-	}
-	*/
-}
+ 
+ import java.awt.EventQueue;
+ 
+ import javax.swing.JFrame;
+ import java.awt.CardLayout;
+ import java.awt.Color;
+ import javax.swing.JPanel;
+ import java.awt.BorderLayout;
+ import java.awt.FlowLayout;
+ import java.awt.GridLayout;
+ import javax.swing.JLabel;
+ import javax.swing.SwingConstants;
+ import java.awt.Font;
+ import javax.swing.JTextField;
+ import javax.swing.BorderFactory;
+ import javax.swing.BoxLayout;
+ import javax.swing.ButtonGroup;
+ import javax.swing.border.TitledBorder;
+ import java.awt.Component;
+ import javax.swing.JButton;
+ import javax.swing.border.MatteBorder;
+ import javax.swing.border.LineBorder;
+ import javax.swing.JRadioButton;
+ import javax.swing.JScrollPane;
+ 
+ import java.awt.GridBagLayout;
+ import java.awt.GridBagConstraints;
+ import java.awt.Insets;
+ import javax.swing.JComboBox;
+ import javax.swing.JTextArea;
+ import javax.swing.JList;
+ import javax.swing.ImageIcon;
+ import javax.swing.JCheckBox;
+ import javax.swing.JScrollBar;
+ import java.awt.Point;
+ 
+ public class VentanaVisual {
+ 
+ 	private JFrame frame;
+ 	private JTextField textField;
+ 	private JTextField textField_1;
+ 	private JTextField textField_2;
+ 	private JTextField textField_3;
+ 	
+ 	Font titulo = new Font("Tahoma", Font.BOLD, 12);
+ 
+ 	/**
+ 	 * Launch the application.
+ 	 */
+ 	public static void main(String[] args) {
+ 		EventQueue.invokeLater(new Runnable() {
+ 			public void run() {
+ 				try {
+ 					VentanaVisual window = new VentanaVisual();
+ 					window.frame.setVisible(true);
+ 				} catch (Exception e) {
+ 					e.printStackTrace();
+ 				}
+ 			}
+ 		});
+ 	}
+ 
+ 	/**
+ 	 * Create the application.
+ 	 */
+ 	public VentanaVisual() {
+ 		initialize();
+ 	}
+ 
+ 	/**
+ 	 * Initialize the contents of the frame.
+ 	 */
+ 	private void initialize() {
+ 		frame = new JFrame();
+ 		frame.setBackground(new Color(255, 255, 255));
+ 		frame.setBounds(100, 100, 716, 553);
+ 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+ 		frame.getContentPane().setLayout(new CardLayout(0, 0));
+ 		
+ 		JPanel panel = new JPanel();
+ 		panel.setBackground(new Color(0, 250, 154));
+ 		frame.getContentPane().add(panel, "name_487917589202800");
+ 		panel.setLayout(new BorderLayout(10, 10));
+ 		
+ 		JLabel lblNewLabel = new JLabel("  Registro de usuarios");
+ 		lblNewLabel.setFont(new Font("Tahoma", Font.ITALIC, 23));
+ 		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
+ 		panel.add(lblNewLabel, BorderLayout.NORTH);
+ 		
+ 		JPanel panel_1 = new JPanel();
+ 		panel_1.setBorder(new MatteBorder(1, 10, 10, 10, (Color) new Color(0, 250, 154)));
+ 		panel_1.setBackground(new Color(0, 250, 154));
+ 		panel_1.setForeground(new Color(0, 0, 0));
+ 		panel.add(panel_1, BorderLayout.CENTER);
+ 		GridBagLayout gbl_panel_1 = new GridBagLayout();
+ 		gbl_panel_1.columnWidths = new int[]{320, 320, 0};
+ 		gbl_panel_1.rowHeights = new int[] {261, 200, 0};
+ 		gbl_panel_1.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+ 		gbl_panel_1.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+ 		panel_1.setLayout(gbl_panel_1);
+ 		
+ 		JPanel panel_2 = new JPanel();
+ 		panel_2.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(64, 64, 64)), "Datos generales", TitledBorder.LEFT, TitledBorder.TOP, titulo, new Color(0, 0, 0)));
+ 		panel_2.setBackground(new Color(135, 206, 235));
+ 		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
+ 		gbc_panel_2.fill = GridBagConstraints.BOTH;
+ 		gbc_panel_2.insets = new Insets(0, 0, 5, 5);
+ 		gbc_panel_2.gridx = 0;
+ 		gbc_panel_2.gridy = 0;
+ 		panel_1.add(panel_2, gbc_panel_2);
+ 		GridBagLayout gbl_panel_2 = new GridBagLayout();
+ 		gbl_panel_2.columnWidths = new int[] {145, 145, 40};
+ 		gbl_panel_2.rowHeights = new int[] {30, 30, 30, 30, 30, 30, 30, 30};
+ 		gbl_panel_2.columnWeights = new double[]{0.0, 1.0};
+ 		gbl_panel_2.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+ 		panel_2.setLayout(gbl_panel_2);
+ 		
+ 		JLabel lblNewLabel_1 = new JLabel("Nombres:");
+ 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+ 		lblNewLabel_1.setAlignmentY(1.0f);
+ 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
+ 		gbc_lblNewLabel_1.fill = GridBagConstraints.BOTH;
+ 		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
+ 		gbc_lblNewLabel_1.gridx = 0;
+ 		gbc_lblNewLabel_1.gridy = 0;
+ 		panel_2.add(lblNewLabel_1, gbc_lblNewLabel_1);
+ 		
+ 		textField_1 = new JTextField();
+ 		textField_1.setAlignmentX(Component.RIGHT_ALIGNMENT);
+ 		textField_1.setAlignmentY(Component.TOP_ALIGNMENT);
+ 		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
+ 		gbc_textField_1.fill = GridBagConstraints.BOTH;
+ 		gbc_textField_1.insets = new Insets(0, 0, 5, 0);
+ 		gbc_textField_1.gridx = 1;
+ 		gbc_textField_1.gridy = 0;
+ 		panel_2.add(textField_1, gbc_textField_1);
+ 		textField_1.setColumns(10);
+ 		
+ 		JLabel lblNewLabel_2 = new JLabel("Apellido paterno:");
+ 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+ 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
+ 		gbc_lblNewLabel_2.fill = GridBagConstraints.BOTH;
+ 		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
+ 		gbc_lblNewLabel_2.gridx = 0;
+ 		gbc_lblNewLabel_2.gridy = 1;
+ 		panel_2.add(lblNewLabel_2, gbc_lblNewLabel_2);
+ 		
+ 		textField = new JTextField();
+ 		textField.setAlignmentY(Component.TOP_ALIGNMENT);
+ 		textField.setAlignmentX(0.0f);
+ 		GridBagConstraints gbc_textField = new GridBagConstraints();
+ 		gbc_textField.fill = GridBagConstraints.BOTH;
+ 		gbc_textField.insets = new Insets(0, 0, 5, 0);
+ 		gbc_textField.gridx = 1;
+ 		gbc_textField.gridy = 1;
+ 		panel_2.add(textField, gbc_textField);
+ 		textField.setColumns(10);
+ 		
+ 		JLabel lblNewLabel_3 = new JLabel("Apellido materno:");
+ 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+ 		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
+ 		gbc_lblNewLabel_3.fill = GridBagConstraints.BOTH;
+ 		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
+ 		gbc_lblNewLabel_3.gridx = 0;
+ 		gbc_lblNewLabel_3.gridy = 2;
+ 		panel_2.add(lblNewLabel_3, gbc_lblNewLabel_3);
+ 		
+ 		textField_2 = new JTextField();
+ 		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
+ 		gbc_textField_2.fill = GridBagConstraints.BOTH;
+ 		gbc_textField_2.insets = new Insets(0, 0, 5, 0);
+ 		gbc_textField_2.gridx = 1;
+ 		gbc_textField_2.gridy = 2;
+ 		panel_2.add(textField_2, gbc_textField_2);
+ 		textField_2.setColumns(10);
+ 		
+ 		JLabel lblNewLabel_4 = new JLabel("Fecha Nacimiento:");
+ 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
+ 		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
+ 		gbc_lblNewLabel_4.fill = GridBagConstraints.BOTH;
+ 		gbc_lblNewLabel_4.insets = new Insets(0, 0, 5, 5);
+ 		gbc_lblNewLabel_4.gridx = 0;
+ 		gbc_lblNewLabel_4.gridy = 3;
+ 		panel_2.add(lblNewLabel_4, gbc_lblNewLabel_4);
+ 		
+ 		textField_3 = new JTextField();
+ 		textField_3.setText("12/06/1998");
+ 		GridBagConstraints gbc_textField_3 = new GridBagConstraints();
+ 		gbc_textField_3.fill = GridBagConstraints.BOTH;
+ 		gbc_textField_3.insets = new Insets(0, 0, 5, 0);
+ 		gbc_textField_3.gridx = 1;
+ 		gbc_textField_3.gridy = 3;
+ 		panel_2.add(textField_3, gbc_textField_3);
+ 		textField_3.setColumns(10);
+ 		
+ 		JLabel lblNewLabel_5 = new JLabel("Sexo:");
+ 		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
+ 		GridBagConstraints gbc_lblNewLabel_5 = new GridBagConstraints();
+ 		gbc_lblNewLabel_5.fill = GridBagConstraints.BOTH;
+ 		gbc_lblNewLabel_5.insets = new Insets(0, 0, 5, 5);
+ 		gbc_lblNewLabel_5.gridx = 0;
+ 		gbc_lblNewLabel_5.gridy = 4;
+ 		panel_2.add(lblNewLabel_5, gbc_lblNewLabel_5);
+ 		
+ 		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Masculino");
+ 		rdbtnNewRadioButton_1.setBackground(new Color(135, 206, 235));
+ 		GridBagConstraints gbc_rdbtnNewRadioButton_1 = new GridBagConstraints();
+ 		gbc_rdbtnNewRadioButton_1.fill = GridBagConstraints.BOTH;
+ 		gbc_rdbtnNewRadioButton_1.insets = new Insets(0, 0, 5, 0);
+ 		gbc_rdbtnNewRadioButton_1.gridx = 1;
+ 		gbc_rdbtnNewRadioButton_1.gridy = 4;
+ 		panel_2.add(rdbtnNewRadioButton_1, gbc_rdbtnNewRadioButton_1);
+ 		
+ 		JRadioButton rdbtnNewRadioButton = new JRadioButton("Femenino");
+ 		rdbtnNewRadioButton.setForeground(new Color(0, 0, 0));
+ 		rdbtnNewRadioButton.setBackground(new Color(135, 206, 235));
+ 		GridBagConstraints gbc_rdbtnNewRadioButton = new GridBagConstraints();
+ 		gbc_rdbtnNewRadioButton.insets = new Insets(0, 0, 5, 0);
+ 		gbc_rdbtnNewRadioButton.fill = GridBagConstraints.BOTH;
+ 		gbc_rdbtnNewRadioButton.gridx = 1;
+ 		gbc_rdbtnNewRadioButton.gridy = 5;
+ 		panel_2.add(rdbtnNewRadioButton, gbc_rdbtnNewRadioButton);
+ 		
+ 		ButtonGroup sexo = new ButtonGroup();
+ 		
+ 		sexo.add(rdbtnNewRadioButton);
+ 		sexo.add(rdbtnNewRadioButton_1);
+ 		
+ 		JLabel lblNewLabel_6 = new JLabel("Nacionalidad:");
+ 		lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
+ 		GridBagConstraints gbc_lblNewLabel_6 = new GridBagConstraints();
+ 		gbc_lblNewLabel_6.insets = new Insets(0, 0, 0, 5);
+ 		gbc_lblNewLabel_6.gridx = 0;
+ 		gbc_lblNewLabel_6.gridy = 6;
+ 		panel_2.add(lblNewLabel_6, gbc_lblNewLabel_6);
+ 		
+ 		String [] paises = {"México", "Perú", "Brasil", "Chile", "Argentina"};
+ 		
+ 		JComboBox comboBox = new JComboBox(paises);
+ 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
+ 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
+ 		gbc_comboBox.gridx = 1;
+ 		gbc_comboBox.gridy = 6;
+ 		panel_2.add(comboBox, gbc_comboBox);
+ 		
+ 		
+ 		JPanel panel_3 = new JPanel();
+ 		panel_3.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(64, 64, 64)), "Perfil del Usuario", TitledBorder.LEADING, TitledBorder.TOP, titulo, new Color(0, 0, 0)));
+ 		panel_3.setBackground(new Color(255, 153, 153));
+ 		GridBagConstraints gbc_panel_3 = new GridBagConstraints();
+ 		gbc_panel_3.fill = GridBagConstraints.BOTH;
+ 		gbc_panel_3.insets = new Insets(0, 0, 5, 0);
+ 		gbc_panel_3.gridx = 1;
+ 		gbc_panel_3.gridy = 0;
+ 		panel_1.add(panel_3, gbc_panel_3);
+ 		GridBagLayout gbl_panel_3 = new GridBagLayout();
+ 		gbl_panel_3.columnWidths = new int[]{325, 0};
+ 		gbl_panel_3.rowHeights = new int[] {140, 40, 20};
+ 		gbl_panel_3.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+ 		gbl_panel_3.rowWeights = new double[]{0.0, 0.0, 0.0};
+ 		panel_3.setLayout(gbl_panel_3);
+ 		
+ 		JLabel lblNewLabel_9 = new JLabel("");
+ 		lblNewLabel_9.setHorizontalAlignment(SwingConstants.CENTER);
+ 		lblNewLabel_9.setIcon(new ImageIcon(VentanaVisual.class.getResource("/app/images/user128.png")));
+ 		GridBagConstraints gbc_lblNewLabel_9 = new GridBagConstraints();
+ 		gbc_lblNewLabel_9.fill = GridBagConstraints.BOTH;
+ 		gbc_lblNewLabel_9.insets = new Insets(0, 0, 5, 0);
+ 		gbc_lblNewLabel_9.gridx = 0;
+ 		gbc_lblNewLabel_9.gridy = 0;
+ 		panel_3.add(lblNewLabel_9, gbc_lblNewLabel_9);
+ 		
+ 		JCheckBox chckbxNewCheckBox = new JCheckBox("Mostrar Foto de Perfil");
+ 		chckbxNewCheckBox.setHorizontalAlignment(SwingConstants.CENTER);
+ 		chckbxNewCheckBox.setBackground(new Color(255, 153, 153));
+ 		GridBagConstraints gbc_chckbxNewCheckBox = new GridBagConstraints();
+ 		gbc_chckbxNewCheckBox.fill = GridBagConstraints.BOTH;
+ 		gbc_chckbxNewCheckBox.insets = new Insets(0, 0, 5, 0);
+ 		gbc_chckbxNewCheckBox.gridx = 0;
+ 		gbc_chckbxNewCheckBox.gridy = 1;
+ 		panel_3.add(chckbxNewCheckBox, gbc_chckbxNewCheckBox);
+ 		
+ 		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Mostrar fecha Nacimiento");
+ 		chckbxNewCheckBox_1.setHorizontalAlignment(SwingConstants.CENTER);
+ 		chckbxNewCheckBox_1.setBackground(new Color(255, 153, 153));
+ 		GridBagConstraints gbc_chckbxNewCheckBox_1 = new GridBagConstraints();
+ 		gbc_chckbxNewCheckBox_1.insets = new Insets(0, 0, 5, 0);
+ 		gbc_chckbxNewCheckBox_1.fill = GridBagConstraints.BOTH;
+ 		gbc_chckbxNewCheckBox_1.gridx = 0;
+ 		gbc_chckbxNewCheckBox_1.gridy = 2;
+ 		panel_3.add(chckbxNewCheckBox_1, gbc_chckbxNewCheckBox_1);
+ 		
+ 		JPanel panel_4 = new JPanel();
+ 		panel_4.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(64, 64, 64)), "Datos Opcionales", TitledBorder.LEADING, TitledBorder.TOP, titulo, new Color(0, 0, 0)));
+ 		panel_4.setBackground(new Color(250, 128, 114));
+ 		GridBagConstraints gbc_panel_4 = new GridBagConstraints();
+ 		gbc_panel_4.fill = GridBagConstraints.BOTH;
+ 		gbc_panel_4.insets = new Insets(0, 0, 0, 5);
+ 		gbc_panel_4.gridx = 0;
+ 		gbc_panel_4.gridy = 1;
+ 		panel_1.add(panel_4, gbc_panel_4);
+ 		GridBagLayout gbl_panel_4 = new GridBagLayout();
+ 		gbl_panel_4.columnWidths = new int[] {30, 125, 30, 110, 0};
+ 		gbl_panel_4.rowHeights = new int[] {40, 100};
+ 		gbl_panel_4.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+ 		gbl_panel_4.rowWeights = new double[]{0.0, 0.0};
+ 		panel_4.setLayout(gbl_panel_4);
+ 		
+ 		JLabel lblNewLabel_7 = new JLabel("Descripción");
+ 		lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
+ 		GridBagConstraints gbc_lblNewLabel_7 = new GridBagConstraints();
+ 		gbc_lblNewLabel_7.fill = GridBagConstraints.BOTH;
+ 		gbc_lblNewLabel_7.insets = new Insets(0, 0, 5, 5);
+ 		gbc_lblNewLabel_7.gridx = 1;
+ 		gbc_lblNewLabel_7.gridy = 0;
+ 		panel_4.add(lblNewLabel_7, gbc_lblNewLabel_7);
+ 		
+ 		JLabel lblNewLabel_8 = new JLabel("Preferencias");
+ 		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
+ 		GridBagConstraints gbc_lblNewLabel_8 = new GridBagConstraints();
+ 		gbc_lblNewLabel_8.fill = GridBagConstraints.BOTH;
+ 		gbc_lblNewLabel_8.insets = new Insets(0, 0, 5, 0);
+ 		gbc_lblNewLabel_8.gridx = 3;
+ 		gbc_lblNewLabel_8.gridy = 0;
+ 		panel_4.add(lblNewLabel_8, gbc_lblNewLabel_8);
+ 		
+ 		JTextArea textArea = new JTextArea();
+ 		
+ 		String [] preferencias = {"Cantar", "Escuchar música", "Leer", "Deportes", "Otros"};
+ 		
+ 		JList list = new JList(preferencias);
+ 		GridBagConstraints gbc_list = new GridBagConstraints();
+ 		gbc_list.fill = GridBagConstraints.BOTH;
+ 		gbc_list.gridx = 3;
+ 		gbc_list.gridy = 1;
+ 		panel_4.add(list, gbc_list);
+ 		
+ 		JScrollPane jsc = new JScrollPane(textArea);
+ 		GridBagConstraints gbc_jsc = new GridBagConstraints();
+ 		gbc_jsc.fill = GridBagConstraints.BOTH;
+ 		gbc_jsc.insets = new Insets(0, 0, 0, 5);
+ 		gbc_jsc.gridx = 1;
+ 		gbc_jsc.gridy = 1;
+ 		panel_4.add(jsc, gbc_jsc);
+ 		
+ 		JScrollPane jsc_2 = new JScrollPane(list);
+ 		GridBagConstraints gbc_jsc_2 = new GridBagConstraints();
+ 		gbc_jsc_2.fill = GridBagConstraints.BOTH;
+ 		gbc_jsc_2.gridx = 3;
+ 		gbc_jsc_2.gridy = 1;
+ 		panel_4.add(jsc_2, gbc_jsc_2);
+ 		
+ 		JPanel panel_5 = new JPanel();
+ 		panel_5.setBackground(new Color(135, 206, 235));
+ 		GridBagConstraints gbc_panel_5 = new GridBagConstraints();
+ 		gbc_panel_5.fill = GridBagConstraints.BOTH;
+ 		gbc_panel_5.gridx = 1;
+ 		gbc_panel_5.gridy = 1;
+ 		panel_1.add(panel_5, gbc_panel_5);
+ 		GridBagLayout gbl_panel_5 = new GridBagLayout();
+ 		gbl_panel_5.columnWidths = new int[] {105, 0, 100};
+ 		gbl_panel_5.rowHeights = new int[] {20, 0, 30, 0, 30, 0, 20};
+ 		gbl_panel_5.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+ 		gbl_panel_5.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+ 		panel_5.setLayout(gbl_panel_5);
+ 		
+ 		JButton btnNewButton = new JButton("   Nuevo   ");
+ 		btnNewButton.setIcon(new ImageIcon(VentanaVisual.class.getResource("/app/images/plus.png")));
+ 		btnNewButton.setVerticalAlignment(SwingConstants.TOP);
+ 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
+ 		btnNewButton.setAlignmentY(Component.TOP_ALIGNMENT);
+ 		btnNewButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+ 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+ 		gbc_btnNewButton.fill = GridBagConstraints.BOTH;
+ 		gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
+ 		gbc_btnNewButton.gridx = 1;
+ 		gbc_btnNewButton.gridy = 1;
+ 		panel_5.add(btnNewButton, gbc_btnNewButton);
+ 		
+ 		JButton btnNewButton_1 = new JButton("  Guardar  ");
+ 		btnNewButton_1.setIcon(new ImageIcon(VentanaVisual.class.getResource("/app/images/save.png")));
+ 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+ 		btnNewButton_1.setHorizontalAlignment(SwingConstants.LEADING);
+ 		btnNewButton_1.setAlignmentX(Component.CENTER_ALIGNMENT);
+ 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
+ 		gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 0);
+ 		gbc_btnNewButton_1.fill = GridBagConstraints.BOTH;
+ 		gbc_btnNewButton_1.gridx = 1;
+ 		gbc_btnNewButton_1.gridy = 3;
+ 		panel_5.add(btnNewButton_1, gbc_btnNewButton_1);
+ 		
+ 		JButton btnNewButton_2 = new JButton("     Salir      ");
+ 		btnNewButton_2.setIcon(new ImageIcon(VentanaVisual.class.getResource("/app/images/exit.png")));
+ 		btnNewButton_2.setVerticalAlignment(SwingConstants.BOTTOM);
+ 		btnNewButton_2.setFont(new Font("Tahoma", Font.BOLD, 14));
+ 		btnNewButton_2.setAlignmentX(Component.CENTER_ALIGNMENT);
+ 		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
+ 		gbc_btnNewButton_2.fill = GridBagConstraints.BOTH;
+ 		gbc_btnNewButton_2.gridx = 1;
+ 		gbc_btnNewButton_2.gridy = 5;
+ 		panel_5.add(btnNewButton_2, gbc_btnNewButton_2);
+ 	}
+ 
+ }

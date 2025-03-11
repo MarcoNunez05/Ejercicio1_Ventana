@@ -10,6 +10,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -47,7 +49,7 @@ public class Ventana extends JFrame
 	public Ventana(String title)
 	{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(800, 830);
+		this.setSize(500, 830);
 		this.setTitle(title);
 		this.setLocationRelativeTo(null);
 		this.setIconImage(new ImageIcon(getClass().getResource("images/app.png")).getImage());
@@ -95,7 +97,7 @@ public class Ventana extends JFrame
 		// Añadimos el panel
 		
 		// this.add(login());
-		// this.add(register());
+		this.add(register());
 		// this.add(calculadora());
 		// this.add(tablaRegistros());
 		// this.add(interes());
@@ -255,6 +257,27 @@ public class Ventana extends JFrame
 			}
 		});
 		
+		// Le ponemos un ActionListener a los botones
+		
+		acceder.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				String pass = new String(password.getPassword());
+				
+				if (nombre.getText().equals("") || nombre.getText().trim().isEmpty())
+					nombre.setBorder(BorderFactory.createLineBorder(Color.red, 5));
+				else
+					nombre.setBorder(BorderFactory.createLineBorder(Color.green, 5));
+				
+				if (password.getPassword().length < 6 || pass.trim().isEmpty())
+					password.setBorder(BorderFactory.createLineBorder(Color.red, 5));
+				else
+					password.setBorder(BorderFactory.createLineBorder(Color.green, 5));				
+			}
+				
+		});
 		
 		
 		// ImageIcon
@@ -286,7 +309,7 @@ public class Ventana extends JFrame
 	
 	public JPanel register()
 	{
-		// Size de la ventana recomendada: (500, 800)
+		// Size de la ventana recomendada: ((500, 830) o si tiene un JMenuBar: (500, 830))
 		
 		JPanel panel = new JPanel();
 		panel.setLocation(0, 0);
@@ -363,7 +386,7 @@ public class Ventana extends JFrame
 		// JCheckBox
 		
 		JCheckBox dulces = new JCheckBox("Dulces");
-		dulces.setSize(120, 20);
+		dulces.setSize(80, 20);
 		dulces.setLocation(100, 395);
 		dulces.setOpaque(false);
 		dulces.setLayout(null);
@@ -371,7 +394,7 @@ public class Ventana extends JFrame
 		panel.add(dulces);
 		
 		JCheckBox salado = new JCheckBox("Salado");
-		salado.setSize(120, 20);
+		salado.setSize(80, 20);
 		salado.setLocation(210, 395);
 		salado.setOpaque(false);
 		salado.setLayout(null);
@@ -379,7 +402,7 @@ public class Ventana extends JFrame
 		panel.add(salado);
 		
 		JCheckBox saludable = new JCheckBox("Saludable");
-		saludable.setSize(120, 20);
+		saludable.setSize(100, 20);
 		saludable.setLocation(315, 395);
 		saludable.setOpaque(false);
 		saludable.setLayout(null);
@@ -391,18 +414,16 @@ public class Ventana extends JFrame
 		
 		ButtonGroup terminos = new ButtonGroup();
 		
-		JRadioButton terms1 = new JRadioButton("Acepto los términos", true);
+		JRadioButton terms1 = new JRadioButton("Acepto los términos");
 		terms1.setLocation(80, 485);
-		terms1.setSize(180, 40);
+		terms1.setSize(150, 40);
 		terms1.setOpaque(false);
-		terms1.setBorder(BorderFactory.createLineBorder(Color.red));
 		panel.add(terms1);
 		
 		JRadioButton terms2 = new JRadioButton("Rechazo los términos");
 		terms2.setLocation(260, 485);
 		terms2.setSize(180, 40);
 		terms2.setOpaque(false);
-		terms2.setBorder(BorderFactory.createLineBorder(Color.red));
 		panel.add(terms2);
 		
 		terminos.add(terms1);
@@ -427,6 +448,40 @@ public class Ventana extends JFrame
 		registrarse.setFont(subtitulo);
 		registrarse.setLayout(null);
 		panel.add(registrarse);
+	
+		// Le ponemos un ActionListener
+		
+		registrarse.addActionListener(new ActionListener()  
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				terms1.setBorderPainted(true);
+				dulces.setBorderPainted(true);
+				
+				if (nombre.getText().equals("") || nombre.getText().trim().isEmpty())
+					nombre.setBorder(BorderFactory.createLineBorder(Color.red, 3));
+				else
+					nombre.setBorder(BorderFactory.createLineBorder(Color.green, 3));
+				
+				if (bio.getText().equals(""))
+					bio.setBorder(BorderFactory.createLineBorder(Color.red, 3));
+				else
+					bio.setBorder(BorderFactory.createLineBorder(Color.green, 3));
+				
+				if (dulces.isSelected() || salado.isSelected() || saludable.isSelected())
+					dulces.setBorder(BorderFactory.createLineBorder(Color.green, 3));
+				else
+					dulces.setBorder(BorderFactory.createLineBorder(Color.red, 3));
+				
+				if (terms1.isSelected())
+					terms1.setBorder(BorderFactory.createLineBorder(Color.green, 3));
+				else
+					terms1.setBorder(BorderFactory.createLineBorder(Color.red, 3));
+				
+			}
+			
+		});
 		
 		panel.revalidate();
 		return panel;
@@ -873,7 +928,7 @@ public class Ventana extends JFrame
 		return panel;
 	}
 
-	public void paint(Graphics g)
+	/* public void paint(Graphics g)
 	{
 		super.paint(g);
 		
@@ -1019,4 +1074,5 @@ public class Ventana extends JFrame
 		g2.fillPolygon(techoX, techoY, 3);
 		
 	}
+	*/
 }
