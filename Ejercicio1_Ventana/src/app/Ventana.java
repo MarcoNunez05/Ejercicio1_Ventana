@@ -86,11 +86,44 @@ public class Ventana extends JFrame
 		JCheckBoxMenuItem soporte = new JCheckBoxMenuItem("Soporte");
 		
 		ayuda.add(manual);
-		ayuda.add(soporte);	
+		ayuda.add(soporte);
+		
+		
+		JMenu ir = new JMenu("Ir a...");
+		
+		JMenuItem irLogin = new JMenuItem("Login");
+		
+		irLogin.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				manager("login");
+			}
+			
+		});
+		
+		
+		JMenuItem irRegistro = new JMenuItem("Registro");
+		
+		irRegistro.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				manager("register");
+			}
+			
+		});
+		
+		
+		ir.add(irLogin);
+		ir.add(irRegistro);
 		
 		
 		barra.add(archivo);
 		barra.add(ayuda);
+		barra.add(ir);
 		
 		this.setJMenuBar(barra);
 		
@@ -275,15 +308,25 @@ public class Ventana extends JFrame
 				if (password.getPassword().length < 6 || pass.trim().isEmpty())
 					password.setBorder(BorderFactory.createLineBorder(Color.red, 5));
 				else
-					password.setBorder(BorderFactory.createLineBorder(Color.green, 5));			
+					password.setBorder(BorderFactory.createLineBorder(Color.green, 5));
 				
 				
 				if ((nombre.getText().equals("mnunez_23@alu.uabcs.mx") || nombre.getText().equals("MarcoNunez")) && pass.equals("pepe12"))
-					JOptionPane.showMessageDialog(panelAfuera, "Bienvenido de vuelta, Marco!", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
-				else
-					JOptionPane.showMessageDialog(panelAfuera, "Nombre de usuario o contraseña incorrectos.", "Datos incorrectos", JOptionPane.ERROR_MESSAGE);
+ 					JOptionPane.showMessageDialog(panelAfuera, "Bienvenido de vuelta, Marco!", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
+ 				else
+ 					JOptionPane.showMessageDialog(panelAfuera, "Nombre de usuario o contraseña incorrectos.", "Datos incorrectos", JOptionPane.ERROR_MESSAGE);
 			}
 				
+		});
+		
+		registrar.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				manager("register");
+			}
+			
 		});
 		
 		
@@ -455,8 +498,15 @@ public class Ventana extends JFrame
 		registrarse.setFont(subtitulo);
 		registrarse.setLayout(null);
 		panel.add(registrarse);
+		
+		JButton volver = new JButton("Volver");
+		volver.setSize(90, 30);
+		volver.setLocation(20, 15);
+		volver.setFont(mini);
+		volver.setLayout(null);
+		panel.add(volver);
 	
-		// Le ponemos un ActionListener
+		// Le ponemos un ActionListener a los botones
 		
 		registrarse.addActionListener(new ActionListener()  
 		{
@@ -486,6 +536,16 @@ public class Ventana extends JFrame
 				else
 					terms1.setBorder(BorderFactory.createLineBorder(Color.red, 3));
 				
+			}
+			
+		});
+		
+		volver.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				manager("login");
 			}
 			
 		});
@@ -933,6 +993,27 @@ public class Ventana extends JFrame
 		
 		panel.revalidate();
 		return panel;
+	}
+	
+	public void manager(String target)
+	{
+		this.getContentPane().removeAll();
+		
+		if (target.equals("register"))
+		{	
+			this.setSize(500, 830);
+			this.add(register());
+		}
+		
+		if (target.equals("login"))
+		{
+			this.setSize(800, 730);
+			this.add(login());
+		}
+		
+
+		this.repaint();
+		this.revalidate();
 	}
 
 	/* public void paint(Graphics g)
