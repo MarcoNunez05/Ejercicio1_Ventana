@@ -63,37 +63,11 @@ public class Ventana extends JFrame
 		JMenuBar barra = new JMenuBar();
 		
 		
-		JMenu archivo = new JMenu("Archivo");
+		JMenu cuenta = new JMenu("Cuenta");
 		
+		JMenuItem login = new JMenuItem("Login");
 		
-		JMenuItem nuevo = new JMenuItem("Nuevo");
-		nuevo.setIcon(new ImageIcon(getClass().getResource("images/plus.png")));
-		
-		JMenuItem guardar = new JMenuItem("Guardar");
-		guardar.setIcon(new ImageIcon(getClass().getResource("images/save.png")));
-		
-		JMenuItem abrir = new JMenuItem("Abrir");
-		abrir.setIcon(new ImageIcon(getClass().getResource("images/openFolder.png")));
-		
-		archivo.add(nuevo);
-		archivo.add(guardar);
-		archivo.add(abrir);
-		
-		
-		JMenu ayuda = new JMenu("Ayuda");
-		
-		JRadioButtonMenuItem manual = new JRadioButtonMenuItem("Manual de usuario");
-		JCheckBoxMenuItem soporte = new JCheckBoxMenuItem("Soporte");
-		
-		ayuda.add(manual);
-		ayuda.add(soporte);
-		
-		
-		JMenu ir = new JMenu("Ir a...");
-		
-		JMenuItem irLogin = new JMenuItem("Login");
-		
-		irLogin.addActionListener(new ActionListener()
+		login.addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e) 
@@ -104,9 +78,9 @@ public class Ventana extends JFrame
 		});
 		
 		
-		JMenuItem irRegistro = new JMenuItem("Registro");
+		JMenuItem registro = new JMenuItem("Registro");
 		
-		irRegistro.addActionListener(new ActionListener()
+		registro.addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e) 
@@ -117,13 +91,117 @@ public class Ventana extends JFrame
 		});
 		
 		
-		ir.add(irLogin);
-		ir.add(irRegistro);
+		JMenuItem recuperacion = new JMenuItem("Recuperación de cuenta");
+		
+
+		recuperacion.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				manager("recuperacion");
+			}
+			
+		});
+		
+		cuenta.add(login);
+		cuenta.add(registro);
+		cuenta.add(recuperacion);
 		
 		
-		barra.add(archivo);
+		JMenu usuarios = new JMenu("Usuarios");
+		
+		JMenuItem alta = new JMenuItem("Alta");
+		
+		alta.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				manager("alta");
+			}
+			
+		});
+		
+		
+		JMenuItem baja = new JMenuItem("Baja");
+		
+		baja.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				manager("baja");
+			}
+			
+		});
+		
+		
+		JMenuItem consultar = new JMenuItem("Consultar");
+		
+		consultar.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				manager("consultar");
+			}
+			
+		});
+				
+		usuarios.add(alta);
+		usuarios.add(baja);
+		usuarios.add(consultar);
+		
+		
+		JMenu ayuda = new JMenu("Ayuda");
+		
+		JMenuItem crearUsuario = new JMenuItem("¿Cómo crear un usuario?");
+		
+		crearUsuario.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				manager("comoCrearUsuario");
+			}
+			
+		});
+		
+		
+		JMenuItem accederSistema = new JMenuItem("¿Cómo acceder al sistema?");
+		
+		accederSistema.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				manager("comoAccederSistema");
+			}
+			
+		});
+		
+		
+		JMenuItem passwordOlvidada = new JMenuItem("¿Qué pasa si olvidé mi contraseña?");
+		
+		passwordOlvidada.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				manager("passwordOlvidada");
+			}
+			
+		});
+		
+		ayuda.add(crearUsuario);
+		ayuda.add(accederSistema);
+		ayuda.add(passwordOlvidada);
+		
+		
+		barra.add(cuenta);
+		barra.add(usuarios);
 		barra.add(ayuda);
-		barra.add(ir);
 		
 		this.setJMenuBar(barra);
 		
@@ -747,9 +825,136 @@ public class Ventana extends JFrame
 	}
 	
 	
+	public JPanel recuperar()
+	{
+		JPanel panel = new JPanel();
+		panel.setLocation(0, 0);
+		panel.setSize(this.WIDTH, this.HEIGHT);
+		panel.setOpaque(true);
+		panel.setLayout(null);
+		
+		JLabel labelRecuperar = new JLabel("Recuperación de cuenta");
+		labelRecuperar.setSize(400, 40);
+		labelRecuperar.setLocation(200, 10);
+		labelRecuperar.setBackground(new Color(153, 151, 247));
+		labelRecuperar.setOpaque(true);
+		labelRecuperar.setFont(titulo);
+		labelRecuperar.setHorizontalAlignment(JLabel.CENTER);
+		panel.add(labelRecuperar);
+		
+		panel.revalidate();
+		return panel;
+	}
+	
+	public JPanel alta()
+	{
+		JPanel panel = new JPanel();
+		panel.setLocation(0, 0);
+		panel.setSize(this.WIDTH, this.HEIGHT);
+		panel.setOpaque(true);
+		panel.setLayout(null);
+		
+		JLabel labelAlta = new JLabel("Alta");
+		labelAlta.setSize(400, 40);
+		labelAlta.setLocation(200, 10);
+		labelAlta.setBackground(Color.gray);
+		labelAlta.setOpaque(true);
+		labelAlta.setFont(titulo);
+		labelAlta.setHorizontalAlignment(JLabel.CENTER);
+		panel.add(labelAlta);
+		
+		panel.revalidate();
+		return panel;
+	}
+	
+	public JPanel baja()
+	{
+		JPanel panel = new JPanel();
+		panel.setLocation(0, 0);
+		panel.setSize(this.WIDTH, this.HEIGHT);
+		panel.setOpaque(true);
+		panel.setLayout(null);
+		
+		JLabel labelBaja = new JLabel("Baja");
+		labelBaja.setSize(400, 40);
+		labelBaja.setLocation(200, 10);
+		labelBaja.setBackground(Color.cyan);
+		labelBaja.setOpaque(true);
+		labelBaja.setFont(titulo);
+		labelBaja.setHorizontalAlignment(JLabel.CENTER);
+		panel.add(labelBaja);
+		
+		panel.revalidate();
+		return panel;
+	}
+	
+	public JPanel comoCrearUsuario()
+	{
+		JPanel panel = new JPanel();
+		panel.setLocation(0, 0);
+		panel.setSize(this.WIDTH, this.HEIGHT);
+		panel.setOpaque(true);
+		panel.setLayout(null);
+		
+		JLabel labelCrearUsuario = new JLabel("¿Cómo crear un usuario?");
+		labelCrearUsuario.setSize(400, 40);
+		labelCrearUsuario.setLocation(200, 10);
+		labelCrearUsuario.setBackground(Color.magenta);
+		labelCrearUsuario.setOpaque(true);
+		labelCrearUsuario.setFont(titulo);
+		labelCrearUsuario.setHorizontalAlignment(JLabel.CENTER);
+		panel.add(labelCrearUsuario);
+		
+		panel.revalidate();
+		return panel;
+	}
+	
+	public JPanel comoAccederSistema()
+	{
+		JPanel panel = new JPanel();
+		panel.setLocation(0, 0);
+		panel.setSize(this.WIDTH, this.HEIGHT);
+		panel.setOpaque(true);
+		panel.setLayout(null);
+		
+		JLabel labelAccederSistema = new JLabel("¿Cómo acceder al sistema?");
+		labelAccederSistema.setSize(400, 40);
+		labelAccederSistema.setLocation(200, 10);
+		labelAccederSistema.setBackground(Color.yellow);
+		labelAccederSistema.setOpaque(true);
+		labelAccederSistema.setFont(titulo);
+		labelAccederSistema.setHorizontalAlignment(JLabel.CENTER);
+		panel.add(labelAccederSistema);
+		
+		panel.revalidate();
+		return panel;
+	}
+	
+	public JPanel passwordOlvidada()
+	{
+		JPanel panel = new JPanel();
+		panel.setLocation(0, 0);
+		panel.setSize(this.WIDTH, this.HEIGHT);
+		panel.setOpaque(true);
+		panel.setLayout(null);
+		
+		JLabel labelpasswordOlvidada = new JLabel("¿Qué pasa si olvidé mi contraseña?");
+		labelpasswordOlvidada.setSize(550, 40);
+		labelpasswordOlvidada.setLocation(125, 10);
+		labelpasswordOlvidada.setBackground(Color.pink);
+		labelpasswordOlvidada.setOpaque(true);
+		labelpasswordOlvidada.setFont(titulo);
+		labelpasswordOlvidada.setHorizontalAlignment(JLabel.CENTER);
+		panel.add(labelpasswordOlvidada);
+		
+		panel.revalidate();
+		return panel;
+	}
+	
+	
 	public JPanel tablaRegistros()
 	{
-		// Size de la ventana recomendada: (1000, 800)
+		// Size de la ventana recomendada: ((1000, 800) o si tiene un JMenuBar: (1000, 830))
 		
 		JPanel panel = new JPanel();
 		panel.setLocation(0, 0);
@@ -1009,6 +1214,48 @@ public class Ventana extends JFrame
 		{
 			this.setSize(800, 730);
 			this.add(login());
+		}
+		
+		if (target.equals("recuperacion"))
+		{
+			this.setSize(800, 730);
+			this.add(recuperar());
+		}
+		
+		if (target.equals("alta"))
+		{
+			this.setSize(800, 730);
+			this.add(alta());
+		}
+		
+		if (target.equals("baja"))
+		{
+			this.setSize(800, 730);
+			this.add(baja());
+		}
+		
+		if (target.equals("consultar"))
+		{
+			this.setSize(1000, 830);
+			this.add(tablaRegistros());
+		}
+		
+		if (target.equals("comoCrearUsuario"))
+		{
+			this.setSize(800, 730);
+			this.add(comoCrearUsuario());
+		}
+
+		if (target.equals("comoAccederSistema"))
+		{
+			this.setSize(800, 730);
+			this.add(comoAccederSistema());
+		}
+		
+		if (target.equals("passwordOlvidada"))
+		{
+			this.setSize(800, 730);
+			this.add(passwordOlvidada());
 		}
 		
 
