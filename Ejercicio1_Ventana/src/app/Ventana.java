@@ -827,83 +827,551 @@ public class Ventana extends JFrame
 	
 	public JPanel recuperar()
 	{
-		JPanel panel = new JPanel();
-		panel.setLocation(0, 0);
-		panel.setSize(this.WIDTH, this.HEIGHT);
-		panel.setOpaque(true);
-		panel.setLayout(null);
+		
+		// Size de ventana recomendada: ((800, 700) o si tiene un JMenuBar: (800, 730))
+		
+		JPanel panelAfuera = new JPanel();
+		panelAfuera.setLocation(0, 0);
+		panelAfuera.setSize(this.WIDTH, this.HEIGHT);
+		panelAfuera.setOpaque(true);
+		panelAfuera.setBackground(new Color(114, 111, 247));
+		panelAfuera.setLayout(null);
+		
+		JPanel panelAdentro = new JPanel();
+		panelAdentro.setLocation(160, 90);
+		panelAdentro.setSize(470, 450);
+		panelAdentro.setOpaque(true);
+		panelAdentro.setLayout(null);
+		panelAdentro.setBackground(Color.white);
+		panelAdentro.setBorder(new LineBorder(new Color(16, 47, 125), 6));
+		
+		
+		// JLabels
 		
 		JLabel labelRecuperar = new JLabel("Recuperación de cuenta");
-		labelRecuperar.setSize(400, 40);
+		labelRecuperar.setSize(385, 40);
 		labelRecuperar.setLocation(200, 10);
 		labelRecuperar.setBackground(new Color(153, 151, 247));
 		labelRecuperar.setOpaque(true);
 		labelRecuperar.setFont(titulo);
 		labelRecuperar.setHorizontalAlignment(JLabel.CENTER);
-		panel.add(labelRecuperar);
+		panelAfuera.add(labelRecuperar);
 		
-		panel.revalidate();
-		return panel;
+		JLabel accede = new JLabel("Verifique su cuenta");
+		accede.setSize(320, 40);
+		accede.setLocation(75, 15);
+		accede.setFont(titulo);
+		accede.setHorizontalAlignment(JLabel.CENTER);
+		panelAdentro.add(accede);
+		
+		JLabel labelCodigo = new JLabel("Revise el código que enviamos al");
+		labelCodigo.setSize(385, 20);
+		labelCodigo.setLocation(45, 100);
+		labelCodigo.setFont(subtitulo);
+		labelCodigo.setHorizontalAlignment(JLabel.CENTER);
+		panelAdentro.add(labelCodigo);
+		
+		JLabel labelCorreo = new JLabel("Email añadido a su cuenta.");
+		labelCorreo.setSize(385, 20);
+		labelCorreo.setLocation(45, 130);
+		labelCorreo.setFont(subtitulo);
+		labelCorreo.setHorizontalAlignment(JLabel.CENTER);
+		panelAdentro.add(labelCorreo);
+		
+		JLabel labelInserte = new JLabel("Inserte el código:");
+		labelInserte.setSize(200, 20);
+		labelInserte.setLocation(65, 205);
+		labelInserte.setFont(subtitulo);
+		labelInserte.setHorizontalAlignment(JLabel.CENTER);
+		panelAdentro.add(labelInserte);
+		
+		
+		// JTextField
+		
+		JTextField codigo = new JTextField();
+		codigo.setSize(300, 40);
+		codigo.setLocation(90, 240);
+		codigo.setLayout(null);
+		codigo.setBorder(new LineBorder(Color.black, 3, true));
+		panelAdentro.add(codigo);
+		
+		
+		// JButton
+		
+		JButton volver = new JButton("Volver");
+		volver.setSize(150, 50);
+		volver.setLocation(80, 350);
+		volver.setBackground(new Color(92, 92, 91));
+		volver.setForeground(Color.white);
+		volver.setFont(subtitulo);
+		volver.setLayout(null);
+		volver.setBorder(new LineBorder(Color.black, 3, true));
+		panelAdentro.add(volver);
+		
+		JButton siguiente = new JButton("Siguiente");
+		siguiente.setSize(150, 50);
+		siguiente.setLocation(250, 350);
+		siguiente.setBackground(new Color(11, 156, 154));
+		siguiente.setForeground(Color.white);
+		siguiente.setFont(subtitulo);
+		siguiente.setLayout(null);
+		siguiente.setBorder(new LineBorder(Color.black, 3, true));
+		panelAdentro.add(siguiente);
+		
+		// Le ponemos un evento de Mouse a los botones
+		
+		siguiente.addMouseListener(new MouseAdapter() 
+		{
+			public void mouseEntered(MouseEvent e)
+			{
+				siguiente.setBackground(new Color(97, 186, 186));
+			}
+			
+			public void mouseExited(MouseEvent e)
+			{
+				siguiente.setBackground(new Color(11, 156, 154));
+			}
+		});
+		
+		volver.addMouseListener(new MouseAdapter() 
+		{
+			public void mouseEntered(MouseEvent e)
+			{
+				volver.setBackground(new Color(125, 125, 124));
+			}
+			
+			public void mouseExited(MouseEvent e)
+			{
+				volver.setBackground(new Color(92, 92, 91));
+			}
+		});
+			
+		// Le ponemos un ActionListener a los botones
+		
+		volver.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				manager("login");
+			}
+			
+		});
+		
+		
+		panelAdentro.revalidate();
+		
+		panelAfuera.add(panelAdentro);
+		
+		panelAfuera.revalidate();
+		return panelAfuera;
+
 	}
 	
 	public JPanel alta()
 	{
-		JPanel panel = new JPanel();
-		panel.setLocation(0, 0);
-		panel.setSize(this.WIDTH, this.HEIGHT);
-		panel.setOpaque(true);
-		panel.setLayout(null);
+		// Size de ventana recomendada: ((800, 700) o si tiene un JMenuBar: (800, 730))
+		
+		JPanel panelAfuera = new JPanel();
+		panelAfuera.setLocation(0, 0);
+		panelAfuera.setSize(this.WIDTH, this.HEIGHT);
+		panelAfuera.setOpaque(true);
+		panelAfuera.setBackground(new Color(66, 101, 153));
+		panelAfuera.setLayout(null);
+		
+		JPanel panelAdentro = new JPanel();
+		panelAdentro.setLocation(160, 90);
+		panelAdentro.setSize(470, 450);
+		panelAdentro.setOpaque(true);
+		panelAdentro.setLayout(null);
+		panelAdentro.setBackground(Color.white);
+		panelAdentro.setBorder(new LineBorder(new Color(16, 47, 125), 6));
+		
+		
+		// JLabels
 		
 		JLabel labelAlta = new JLabel("Alta");
-		labelAlta.setSize(400, 40);
-		labelAlta.setLocation(200, 10);
-		labelAlta.setBackground(Color.gray);
+		labelAlta.setSize(80, 40);
+		labelAlta.setLocation(360, 10);
+		labelAlta.setBackground(new Color(77, 117, 179));
 		labelAlta.setOpaque(true);
 		labelAlta.setFont(titulo);
 		labelAlta.setHorizontalAlignment(JLabel.CENTER);
-		panel.add(labelAlta);
+		panelAfuera.add(labelAlta);
 		
-		panel.revalidate();
-		return panel;
+		JLabel accede = new JLabel("Revise su correo");
+		accede.setSize(320, 40);
+		accede.setLocation(75, 15);
+		accede.setFont(titulo);
+		accede.setHorizontalAlignment(JLabel.CENTER);
+		panelAdentro.add(accede);
+		
+		JLabel labelCodigo = new JLabel("Hemos enviado un código a la bandeja");
+		labelCodigo.setSize(385, 20);
+		labelCodigo.setLocation(45, 100);
+		labelCodigo.setFont(subtitulo);
+		labelCodigo.setHorizontalAlignment(JLabel.CENTER);
+		panelAdentro.add(labelCodigo);
+		
+		JLabel labelCorreo = new JLabel("de correo asignado a la cuenta.");
+		labelCorreo.setSize(385, 20);
+		labelCorreo.setLocation(45, 130);
+		labelCorreo.setFont(subtitulo);
+		labelCorreo.setHorizontalAlignment(JLabel.CENTER);
+		panelAdentro.add(labelCorreo);
+		
+		JLabel labelInserte = new JLabel("Inserte el código:");
+		labelInserte.setSize(200, 20);
+		labelInserte.setLocation(65, 205);
+		labelInserte.setFont(subtitulo);
+		labelInserte.setHorizontalAlignment(JLabel.CENTER);
+		panelAdentro.add(labelInserte);
+		
+		
+		// JTextField
+		
+		JTextField codigo = new JTextField();
+		codigo.setSize(300, 40);
+		codigo.setLocation(90, 240);
+		codigo.setLayout(null);
+		codigo.setBorder(new LineBorder(Color.black, 3, true));
+		panelAdentro.add(codigo);
+		
+		
+		// JButton
+		
+		JButton volver = new JButton("Volver");
+		volver.setSize(150, 50);
+		volver.setLocation(80, 350);
+		volver.setBackground(new Color(92, 92, 91));
+		volver.setForeground(Color.white);
+		volver.setFont(subtitulo);
+		volver.setLayout(null);
+		volver.setBorder(new LineBorder(Color.black, 3, true));
+		panelAdentro.add(volver);
+		
+		JButton siguiente = new JButton("Siguiente");
+		siguiente.setSize(150, 50);
+		siguiente.setLocation(250, 350);
+		siguiente.setBackground(new Color(11, 156, 154));
+		siguiente.setForeground(Color.white);
+		siguiente.setFont(subtitulo);
+		siguiente.setLayout(null);
+		siguiente.setBorder(new LineBorder(Color.black, 3, true));
+		panelAdentro.add(siguiente);
+		
+		// Le ponemos un evento de Mouse a los botones
+		
+		siguiente.addMouseListener(new MouseAdapter() 
+		{
+			public void mouseEntered(MouseEvent e)
+			{
+				siguiente.setBackground(new Color(97, 186, 186));
+			}
+			
+			public void mouseExited(MouseEvent e)
+			{
+				siguiente.setBackground(new Color(11, 156, 154));
+			}
+		});
+		
+		volver.addMouseListener(new MouseAdapter() 
+		{
+			public void mouseEntered(MouseEvent e)
+			{
+				volver.setBackground(new Color(125, 125, 124));
+			}
+			
+			public void mouseExited(MouseEvent e)
+			{
+				volver.setBackground(new Color(92, 92, 91));
+			}
+		});
+		
+		// Le ponemos un ActionListener a los botones
+		
+		volver.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				manager("login");
+			}
+			
+		});
+		
+
+		panelAdentro.revalidate();
+		
+		panelAfuera.add(panelAdentro);
+		
+		panelAfuera.revalidate();
+		return panelAfuera;
 	}
 	
 	public JPanel baja()
 	{
+		// Size de ventana recomendada: ((800, 700) o si tiene un JMenuBar: (800, 730))
+		
 		JPanel panel = new JPanel();
 		panel.setLocation(0, 0);
 		panel.setSize(this.WIDTH, this.HEIGHT);
 		panel.setOpaque(true);
 		panel.setLayout(null);
 		
+		JPanel panelAfuera = new JPanel();
+		panelAfuera.setLocation(0, 0);
+		panelAfuera.setSize(this.WIDTH, this.HEIGHT);
+		panelAfuera.setOpaque(true);
+		panelAfuera.setBackground(new Color(244,80,89));
+		panelAfuera.setLayout(null);
+		
+		JPanel panelAdentro = new JPanel();
+		panelAdentro.setLocation(160, 90);
+		panelAdentro.setSize(470, 500);
+		panelAdentro.setOpaque(true);
+		panelAdentro.setLayout(null);
+		panelAdentro.setBackground(Color.white);
+		panelAdentro.setBorder(new LineBorder(new Color(16, 47, 125), 6));
+		
+		
+		// JLabels
+		
 		JLabel labelBaja = new JLabel("Baja");
-		labelBaja.setSize(400, 40);
-		labelBaja.setLocation(200, 10);
-		labelBaja.setBackground(Color.cyan);
+		labelBaja.setSize(100, 40);
+		labelBaja.setLocation(350, 10);
+		labelBaja.setBackground(new Color(247, 121, 134));
 		labelBaja.setOpaque(true);
 		labelBaja.setFont(titulo);
 		labelBaja.setHorizontalAlignment(JLabel.CENTER);
-		panel.add(labelBaja);
+		panelAfuera.add(labelBaja);
 		
-		panel.revalidate();
-		return panel;
+		JLabel accede = new JLabel("Eliminar su cuenta");
+		accede.setSize(320, 40);
+		accede.setLocation(75, 15);
+		accede.setFont(titulo);
+		accede.setHorizontalAlignment(JLabel.CENTER);
+		panelAdentro.add(accede);
+		
+		JLabel labelCodigo = new JLabel("Hemos enviado un código a la bandeja");
+		labelCodigo.setSize(385, 20);
+		labelCodigo.setLocation(45, 100);
+		labelCodigo.setFont(subtitulo);
+		labelCodigo.setHorizontalAlignment(JLabel.CENTER);
+		panelAdentro.add(labelCodigo);
+		
+		JLabel labelTelefono = new JLabel("de correo asignado a la cuenta.");
+		labelTelefono.setSize(385, 20);
+		labelTelefono.setLocation(45, 130);
+		labelTelefono.setFont(subtitulo);
+		labelTelefono.setHorizontalAlignment(JLabel.CENTER);
+		panelAdentro.add(labelTelefono);
+		
+		JLabel labelInserte = new JLabel("Inserte el código:");
+		labelInserte.setSize(200, 20);
+		labelInserte.setLocation(65, 195);
+		labelInserte.setFont(subtitulo);
+		labelInserte.setHorizontalAlignment(JLabel.CENTER);
+		panelAdentro.add(labelInserte);
+		
+		JLabel labelPassword = new JLabel("Inserte su contraseña:");
+		labelPassword.setSize(200, 20);
+		labelPassword.setLocation(85, 300);
+		labelPassword.setFont(subtitulo);
+		labelPassword.setHorizontalAlignment(JLabel.CENTER);
+		panelAdentro.add(labelPassword);
+		
+		
+		// JTextField
+		
+		JTextField codigo = new JTextField();
+		codigo.setSize(300, 40);
+		codigo.setLocation(90, 230);
+		codigo.setLayout(null);
+		codigo.setBorder(new LineBorder(Color.black, 3, true));
+		panelAdentro.add(codigo);
+		
+		
+		// JPasswordField
+		
+		JPasswordField password = new JPasswordField();
+		password.setSize(300, 40);
+		password.setLocation(90, 330);
+		password.setLayout(null);
+		password.setBorder(new LineBorder(Color.black, 3, true));
+		panelAdentro.add(password);
+		
+		// JButton
+		
+		JButton volver = new JButton("Volver");
+		volver.setSize(150, 50);
+		volver.setLocation(80, 410);
+		volver.setBackground(new Color(92, 92, 91));
+		volver.setForeground(Color.white);
+		volver.setFont(subtitulo);
+		volver.setLayout(null);
+		volver.setBorder(new LineBorder(Color.black, 3, true));
+		panelAdentro.add(volver);
+		
+		JButton siguiente = new JButton("Eliminar");
+		siguiente.setSize(150, 50);
+		siguiente.setLocation(250, 410);
+		siguiente.setBackground(new Color(230, 14, 46));
+		siguiente.setForeground(Color.white);
+		siguiente.setFont(subtitulo);
+		siguiente.setLayout(null);
+		siguiente.setBorder(new LineBorder(Color.black, 3, true));
+		panelAdentro.add(siguiente);
+		
+		// Le ponemos un evento de Mouse a los botones
+		
+		siguiente.addMouseListener(new MouseAdapter() 
+		{
+			public void mouseEntered(MouseEvent e)
+			{
+				siguiente.setBackground(new Color(219, 86, 105));
+			}
+			
+			public void mouseExited(MouseEvent e)
+			{
+				siguiente.setBackground(new Color(230, 14, 46));
+			}
+		});
+		
+		volver.addMouseListener(new MouseAdapter() 
+		{
+			public void mouseEntered(MouseEvent e)
+			{
+				volver.setBackground(new Color(125, 125, 124));
+			}
+			
+			public void mouseExited(MouseEvent e)
+			{
+				volver.setBackground(new Color(92, 92, 91));
+			}
+		});
+		
+		// Le ponemos un ActionListener a los botones
+		
+		volver.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				manager("login");
+			}
+			
+		});
+		
+		
+		panelAdentro.revalidate();
+		
+		panelAfuera.add(panelAdentro);
+		
+		panelAfuera.revalidate();
+		return panelAfuera;
 	}
 	
 	public JPanel comoCrearUsuario()
 	{
+		// Size de ventana recomendada: (700, 500) o si tiene un JMenuBar: (700, 530))
+		
 		JPanel panel = new JPanel();
 		panel.setLocation(0, 0);
 		panel.setSize(this.WIDTH, this.HEIGHT);
 		panel.setOpaque(true);
+		panel.setBackground(new Color(236,235,233));
 		panel.setLayout(null);
 		
 		JLabel labelCrearUsuario = new JLabel("¿Cómo crear un usuario?");
-		labelCrearUsuario.setSize(400, 40);
-		labelCrearUsuario.setLocation(200, 10);
-		labelCrearUsuario.setBackground(Color.magenta);
+		labelCrearUsuario.setSize(700, 40);
+		labelCrearUsuario.setLocation(0, 10);
+		labelCrearUsuario.setBackground(new Color(101,186,191));
 		labelCrearUsuario.setOpaque(true);
 		labelCrearUsuario.setFont(titulo);
 		labelCrearUsuario.setHorizontalAlignment(JLabel.CENTER);
 		panel.add(labelCrearUsuario);
+		
+		JLabel labelPaso1 = new JLabel("1. Vaya a la página de registro.");
+		labelPaso1.setSize(800, 40);
+		labelPaso1.setLocation(50, 75);
+		labelPaso1.setOpaque(false);
+		labelPaso1.setFont(calculadoraFont);
+		labelPaso1.setHorizontalAlignment(JLabel.LEFT);
+		panel.add(labelPaso1);
+		
+		JLabel labelPaso2 = new JLabel("2. Rellene el formulario con su");
+		labelPaso2.setSize(800, 40);
+		labelPaso2.setLocation(50, 135);
+		labelPaso2.setOpaque(false);
+		labelPaso2.setFont(calculadoraFont);
+		labelPaso2.setHorizontalAlignment(JLabel.LEFT);
+		panel.add(labelPaso2);
+		
+		JLabel labelPaso2_1 = new JLabel("información personal y regístrese.");
+		labelPaso2_1.setSize(800, 40);
+		labelPaso2_1.setLocation(80, 175);
+		labelPaso2_1.setOpaque(false);
+		labelPaso2_1.setFont(calculadoraFont);
+		labelPaso2_1.setHorizontalAlignment(JLabel.LEFT);
+		panel.add(labelPaso2_1);
+		
+		JLabel labelPaso3 = new JLabel("3. Vaya a la página de alta.");
+		labelPaso3.setSize(800, 40);
+		labelPaso3.setLocation(50, 235);
+		labelPaso3.setOpaque(false);
+		labelPaso3.setFont(calculadoraFont);
+		labelPaso3.setHorizontalAlignment(JLabel.LEFT);
+		panel.add(labelPaso3);
+		
+		JLabel labelPaso4 = new JLabel("4. Siga las instrucciones para verificar su cuenta.");
+		labelPaso4.setSize(800, 40);
+		labelPaso4.setLocation(50, 295);
+		labelPaso4.setOpaque(false);
+		labelPaso4.setFont(calculadoraFont);
+		labelPaso4.setHorizontalAlignment(JLabel.LEFT);
+		panel.add(labelPaso4);
+		
+		
+		// JButton
+		
+		JButton volver = new JButton("Volver");
+		volver.setSize(150, 50);
+		volver.setLocation(275, 370);
+		volver.setBackground(new Color(92, 92, 91));
+		volver.setForeground(Color.white);
+		volver.setFont(subtitulo);
+		volver.setLayout(null);
+		volver.setBorder(new LineBorder(Color.black, 3, true));
+		panel.add(volver);
+		
+		// Le ponemos un evento de Mouse a los botones
+		
+		volver.addMouseListener(new MouseAdapter() 
+		{
+			public void mouseEntered(MouseEvent e)
+			{
+				volver.setBackground(new Color(125, 125, 124));
+			}
+			
+			public void mouseExited(MouseEvent e)
+			{
+				volver.setBackground(new Color(92, 92, 91));
+			}
+		});
+		
+		// Le ponemos un ActionListener a los botones
+		
+		volver.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				manager("login");
+			}
+			
+		});
+		
 		
 		panel.revalidate();
 		return panel;
@@ -911,20 +1379,89 @@ public class Ventana extends JFrame
 	
 	public JPanel comoAccederSistema()
 	{
+		// Size de ventana recomendada: (800, 400) o si tiene un JMenuBar: (800, 430))
+		
 		JPanel panel = new JPanel();
 		panel.setLocation(0, 0);
 		panel.setSize(this.WIDTH, this.HEIGHT);
 		panel.setOpaque(true);
+		panel.setBackground(new Color(236,235,233));
 		panel.setLayout(null);
 		
 		JLabel labelAccederSistema = new JLabel("¿Cómo acceder al sistema?");
-		labelAccederSistema.setSize(400, 40);
-		labelAccederSistema.setLocation(200, 10);
-		labelAccederSistema.setBackground(Color.yellow);
+		labelAccederSistema.setSize(800, 40);
+		labelAccederSistema.setLocation(0, 10);
+		labelAccederSistema.setBackground(new Color(114, 171, 130));
 		labelAccederSistema.setOpaque(true);
 		labelAccederSistema.setFont(titulo);
 		labelAccederSistema.setHorizontalAlignment(JLabel.CENTER);
 		panel.add(labelAccederSistema);
+		
+		JLabel labelPaso1 = new JLabel("1. Tiene que tener una cuenta registrada y verificada.");
+		labelPaso1.setSize(800, 40);
+		labelPaso1.setLocation(50, 75);
+		labelPaso1.setOpaque(false);
+		labelPaso1.setFont(calculadoraFont);
+		labelPaso1.setHorizontalAlignment(JLabel.LEFT);
+		panel.add(labelPaso1);
+		
+		JLabel labelPaso2 = new JLabel("2. Navegue hacia la página de login.");
+		labelPaso2.setSize(800, 40);
+		labelPaso2.setLocation(50, 135);
+		labelPaso2.setOpaque(false);
+		labelPaso2.setFont(calculadoraFont);
+		labelPaso2.setHorizontalAlignment(JLabel.LEFT);
+		panel.add(labelPaso2);
+		
+		
+		JLabel labelPaso3 = new JLabel("3. Ingrese su información personal e inicie sesión.");
+		labelPaso3.setSize(800, 40);
+		labelPaso3.setLocation(50, 195);
+		labelPaso3.setOpaque(false);
+		labelPaso3.setFont(calculadoraFont);
+		labelPaso3.setHorizontalAlignment(JLabel.LEFT);
+		panel.add(labelPaso3);
+		
+		
+		// JButton
+		
+		JButton volver = new JButton("Volver");
+		volver.setSize(150, 50);
+		volver.setLocation(315, 280);
+		volver.setBackground(new Color(92, 92, 91));
+		volver.setForeground(Color.white);
+		volver.setFont(subtitulo);
+		volver.setLayout(null);
+		volver.setBorder(new LineBorder(Color.black, 3, true));
+		panel.add(volver);
+		
+		// Le ponemos un evento de Mouse a los botones
+		
+		volver.addMouseListener(new MouseAdapter() 
+		{
+			public void mouseEntered(MouseEvent e)
+			{
+				volver.setBackground(new Color(125, 125, 124));
+			}
+			
+			public void mouseExited(MouseEvent e)
+			{
+				volver.setBackground(new Color(92, 92, 91));
+			}
+		});
+		
+		// Le ponemos un ActionListener a los botones
+		
+		volver.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				manager("login");
+			}
+			
+		});
+		
 		
 		panel.revalidate();
 		return panel;
@@ -932,20 +1469,89 @@ public class Ventana extends JFrame
 	
 	public JPanel passwordOlvidada()
 	{
+		// Size de ventana recomendada: (800, 400) o si tiene un JMenuBar: (800, 430))
+		
 		JPanel panel = new JPanel();
 		panel.setLocation(0, 0);
 		panel.setSize(this.WIDTH, this.HEIGHT);
 		panel.setOpaque(true);
+		panel.setBackground(new Color(236,235,233));
 		panel.setLayout(null);
 		
 		JLabel labelpasswordOlvidada = new JLabel("¿Qué pasa si olvidé mi contraseña?");
-		labelpasswordOlvidada.setSize(550, 40);
-		labelpasswordOlvidada.setLocation(125, 10);
-		labelpasswordOlvidada.setBackground(Color.pink);
+		labelpasswordOlvidada.setSize(900, 40);
+		labelpasswordOlvidada.setLocation(0, 10);
+		labelpasswordOlvidada.setBackground(new Color(207, 158, 138));
 		labelpasswordOlvidada.setOpaque(true);
 		labelpasswordOlvidada.setFont(titulo);
 		labelpasswordOlvidada.setHorizontalAlignment(JLabel.CENTER);
 		panel.add(labelpasswordOlvidada);
+		
+		JLabel labelPaso1 = new JLabel("1. Navegue a la página de recuperación y siga las instrucciones.");
+		labelPaso1.setSize(800, 40);
+		labelPaso1.setLocation(50, 75);
+		labelPaso1.setOpaque(false);
+		labelPaso1.setFont(calculadoraFont);
+		labelPaso1.setHorizontalAlignment(JLabel.LEFT);
+		panel.add(labelPaso1);
+		
+		JLabel labelPaso2 = new JLabel("2. Revise la bandeja de entrada de su correo.");
+		labelPaso2.setSize(800, 40);
+		labelPaso2.setLocation(50, 135);
+		labelPaso2.setOpaque(false);
+		labelPaso2.setFont(calculadoraFont);
+		labelPaso2.setHorizontalAlignment(JLabel.LEFT);
+		panel.add(labelPaso2);
+		
+		
+		JLabel labelPaso3 = new JLabel("3. Cambie su contraseña con el enlace en el correo enviado.");
+		labelPaso3.setSize(800, 40);
+		labelPaso3.setLocation(50, 195);
+		labelPaso3.setOpaque(false);
+		labelPaso3.setFont(calculadoraFont);
+		labelPaso3.setHorizontalAlignment(JLabel.LEFT);
+		panel.add(labelPaso3);
+		
+		
+		// JButton
+		
+		JButton volver = new JButton("Volver");
+		volver.setSize(150, 50);
+		volver.setLocation(375, 280);
+		volver.setBackground(new Color(92, 92, 91));
+		volver.setForeground(Color.white);
+		volver.setFont(subtitulo);
+		volver.setLayout(null);
+		volver.setBorder(new LineBorder(Color.black, 3, true));
+		panel.add(volver);
+		
+		// Le ponemos un evento de Mouse a los botones
+		
+		volver.addMouseListener(new MouseAdapter() 
+		{
+			public void mouseEntered(MouseEvent e)
+			{
+				volver.setBackground(new Color(125, 125, 124));
+			}
+			
+			public void mouseExited(MouseEvent e)
+			{
+				volver.setBackground(new Color(92, 92, 91));
+			}
+		});
+		
+		// Le ponemos un ActionListener a los botones
+		
+		volver.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				manager("login");
+			}
+			
+		});
+		
 		
 		panel.revalidate();
 		return panel;
@@ -1000,6 +1606,25 @@ public class Ventana extends JFrame
 		agregar.setFont(subtitulo);
 		agregar.setLayout(null);
 		panel.add(agregar);
+		
+		JButton volver = new JButton("Volver");
+		volver.setSize(150, 40);
+		volver.setLocation(35, 30);
+		volver.setFont(subtitulo);
+		volver.setLayout(null);
+		panel.add(volver);
+		
+		// Le ponemos un ActionListener a los botones
+		
+		volver.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				manager("login");
+			}
+			
+		});
 		
 		
 		// JTable
@@ -1242,19 +1867,19 @@ public class Ventana extends JFrame
 		
 		if (target.equals("comoCrearUsuario"))
 		{
-			this.setSize(800, 730);
+			this.setSize(700, 530);
 			this.add(comoCrearUsuario());
 		}
 
 		if (target.equals("comoAccederSistema"))
 		{
-			this.setSize(800, 730);
+			this.setSize(800, 430);
 			this.add(comoAccederSistema());
 		}
 		
 		if (target.equals("passwordOlvidada"))
 		{
-			this.setSize(800, 730);
+			this.setSize(900, 430);
 			this.add(passwordOlvidada());
 		}
 		
