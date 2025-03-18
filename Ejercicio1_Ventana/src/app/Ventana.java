@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Random;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -46,6 +47,8 @@ public class Ventana extends JFrame
 	
 	Font calculadoraFontResultado = new Font("Cambria", Font.PLAIN, 48);
 	Font calculadoraFont = new Font("Cambria", Font.PLAIN, 28);
+	
+	Random rand = new Random();
 	
 	public Ventana(String title)
 	{
@@ -208,11 +211,12 @@ public class Ventana extends JFrame
 		
 		// Añadimos el panel
 		
-		this.add(login());
+		// this.add(login());
 		// this.add(register());
 		// this.add(calculadora());
 		// this.add(tablaRegistros());
 		// this.add(interes());
+		this.add(boton());
 		this.repaint();
 		this.setVisible(true);
 	}
@@ -1886,6 +1890,51 @@ public class Ventana extends JFrame
 
 		this.repaint();
 		this.revalidate();
+	}
+	
+	public JPanel boton()
+	{
+		// Size de ventana recomendada: ((800, 700) o si tiene un JMenuBar: (800, 730))
+		
+		JPanel panel = new JPanel();
+		panel.setLocation(0, 0);
+		panel.setSize(this.WIDTH, this.HEIGHT);
+		panel.setOpaque(true);
+		panel.setLayout(null);
+		
+		JButton clickea = new JButton("clickea");
+		clickea.setSize(200, 50);
+		clickea.setLocation(330, 590);
+		clickea.setForeground(Color.black);
+		clickea.setFont(subtitulo);
+		clickea.setLayout(null);
+		clickea.setBorder(new LineBorder(Color.black, 3, true));
+		panel.add(clickea);
+		
+		clickea.addActionListener(new ActionListener()
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				JButton random = new JButton("hola");
+				random.setSize(rand.nextInt(100), rand.nextInt(100));
+				random.setLocation(rand.nextInt(800), rand.nextInt(700));
+				random.setBackground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
+				random.setForeground(Color.black);
+				random.setFont(subtitulo);
+				random.setLayout(null);
+				random.setBorder(new LineBorder(Color.black, 3, true));
+				panel.add(random);
+				
+				panel.repaint();
+			}
+			
+		});
+		
+		panel.revalidate();
+		return panel;
+		
 	}
 
 	/* public void paint(Graphics g)
