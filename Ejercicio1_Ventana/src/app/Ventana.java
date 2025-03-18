@@ -1917,7 +1917,8 @@ public class Ventana extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				JButton random = new JButton("hola");
+				
+				JButton random = new JButton(rand.nextDouble(10) + "");
 				random.setSize(rand.nextInt(100), rand.nextInt(100));
 				random.setLocation(rand.nextInt(800), rand.nextInt(700));
 				random.setBackground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
@@ -1928,6 +1929,17 @@ public class Ventana extends JFrame
 				panel.add(random);
 				
 				panel.repaint();
+				
+				random.addActionListener(new ActionListener() 
+				{
+
+					@Override
+					public void actionPerformed(ActionEvent e) 
+					{
+						JOptionPane.showMessageDialog(panel, random.getText(), "Mensaje del botón", JOptionPane.INFORMATION_MESSAGE);		
+					}
+					
+				});
 			}
 			
 		});
