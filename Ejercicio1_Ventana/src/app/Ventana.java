@@ -1936,7 +1936,12 @@ public class Ventana extends JFrame
 					@Override
 					public void actionPerformed(ActionEvent e) 
 					{
-						JOptionPane.showMessageDialog(panel, random.getText(), "Mensaje del botón", JOptionPane.INFORMATION_MESSAGE);		
+						int opcion = JOptionPane.showConfirmDialog(panel, random.getText() + " ¿Quieres eliminar este botón?", "Mensaje del botón", JOptionPane.YES_NO_OPTION);
+						if (opcion == 0)
+						{
+							panel.remove(random);
+							panel.repaint();
+						}
 					}
 					
 				});
