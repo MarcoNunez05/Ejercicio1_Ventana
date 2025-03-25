@@ -38,12 +38,13 @@ public class VentanaRompecabezas15 extends JFrame
 	JButton B14 = new JButton("14");
 	JButton B15 = new JButton("15");
 	JButton B16 = new JButton("");
+	JButton reiniciar = new JButton("Reiniciar");
 	
 	
 	public VentanaRompecabezas15(String title)
 	{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(750, 700);
+		this.setSize(750, 750);
 		this.setTitle(title);
 		this.setLocationRelativeTo(null);
 		this.setIconImage(new ImageIcon(getClass().getResource("images/app.png")).getImage());
@@ -76,6 +77,15 @@ public class VentanaRompecabezas15 extends JFrame
 		
 		
 		// JButton
+		
+		reiniciar.setLocation(318, 645);
+		reiniciar.setSize(100, 30);
+		reiniciar.setForeground(Color.black);
+		reiniciar.setBackground(Color.white);
+		reiniciar.setBorder(BorderFactory.createLineBorder(Color.black, 3));
+		reiniciar.setFont(new Font("Aptos", Font.BOLD, 15));
+		panelAfuera.add(reiniciar);
+		
 		
 		B1.setForeground(Color.black);
 		B1.setBackground(Color.white);
@@ -363,6 +373,7 @@ public class VentanaRompecabezas15 extends JFrame
 			}
 			
 		});
+
 		
 		panel.revalidate();
 		
