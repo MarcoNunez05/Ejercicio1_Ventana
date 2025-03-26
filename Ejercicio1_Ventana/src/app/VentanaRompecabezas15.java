@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 import javax.swing.border.LineBorder;
 
 public class VentanaRompecabezas15 extends JFrame 
@@ -45,8 +46,53 @@ public class VentanaRompecabezas15 extends JFrame
 	JButton iniciar = new JButton("Iniciar");
 	JButton pausar = new JButton("Pausar");
 	JButton reiniciar = new JButton("Reiniciar");
+	JButton reanudar = new JButton("Reanudar");
+	
+	JLabel tiempo = new JLabel();
 	
 	int botonViejo = 16;
+	int sec = 0, mins = 0, horas = 0;
+	
+	String ceroSec = "", ceroMins = "", ceroHoras = "";
+	
+	Timer temporizador = new Timer(1000, new ActionListener() 
+	{
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+			sec++;
+			if (sec == 60)
+			{
+				mins++;
+				sec = 0;
+			}
+			
+			if (mins == 60)
+			{
+				horas++;
+				mins = 0;
+			}
+			
+			if (horas < 10)
+				ceroHoras = "0";
+			else
+				ceroHoras = "";
+			
+			if (mins < 10)
+				ceroMins = "0";
+			else
+				ceroMins = "";
+			
+			if (sec < 10)
+				ceroSec = "0";
+			else
+				ceroSec = "";
+				
+			tiempo.setText(ceroHoras + horas + ":" + ceroMins + mins + ":" + ceroSec + sec);
+			
+		}
+		
+	});
 	
 	
 	public VentanaRompecabezas15(String title)
@@ -93,7 +139,35 @@ public class VentanaRompecabezas15 extends JFrame
 		titulo.setFont(new Font("Aptos", Font.BOLD, 25));
 		panelAfuera.add(titulo);
 		
+		tiempo.setLocation(255, 725);
+		tiempo.setSize(500, 60);
+		tiempo.setFont(new Font("Aptos", Font.BOLD, 60));
+		tiempo.setForeground(Color.black);
+		tiempo.setText("00:00:00");
+		panelAfuera.add(tiempo);
+		
+		
 		// JButton
+		
+		B1.setEnabled(false);
+		B2.setEnabled(false);
+		B3.setEnabled(false);
+		B4.setEnabled(false);
+		B5.setEnabled(false);
+		B6.setEnabled(false);
+		B7.setEnabled(false);
+		B8.setEnabled(false);
+		B9.setEnabled(false);
+		B10.setEnabled(false);
+		B11.setEnabled(false);
+		B12.setEnabled(false);
+		B13.setEnabled(false);
+		B14.setEnabled(false);
+		B15.setEnabled(false);
+		B16.setEnabled(false);
+		
+		numRandom();
+		
 		
 		iniciar.setLocation(75, 640);
 		iniciar.setSize(175, 50);
@@ -102,14 +176,84 @@ public class VentanaRompecabezas15 extends JFrame
 		iniciar.setBorder(BorderFactory.createLineBorder(Color.black, 3));
 		iniciar.setFont(new Font("Aptos", Font.BOLD, 20));
  		panelAfuera.add(iniciar);
+ 		
+ 		iniciar.addActionListener(new ActionListener() 
+ 		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				pausar.setEnabled(true);
+				iniciar.setVisible(false);
+				reanudar.setVisible(true);
+				temporizador.start();
+				validacion();
+			}
+	
+ 		});
+ 		
 		
+ 		reanudar.setLocation(75, 640);
+ 		reanudar.setSize(175, 50);
+ 		reanudar.setForeground(Color.black);
+ 		reanudar.setBackground(Color.white);
+ 		reanudar.setBorder(BorderFactory.createLineBorder(Color.black, 3));
+ 		reanudar.setFont(new Font("Aptos", Font.BOLD, 20));
+ 		reanudar.setVisible(false);
+ 		reanudar.setEnabled(false);
+ 		panelAfuera.add(reanudar);
+ 		
+ 		reanudar.addActionListener(new ActionListener() 
+ 		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				validacion();
+				reanudar.setEnabled(false);
+				pausar.setEnabled(true);
+				temporizador.start();
+			}
+	
+ 		});
+ 		
+ 		
 		pausar.setLocation(285, 640);
 		pausar.setSize(175, 50);
 		pausar.setForeground(Color.black);
 		pausar.setBackground(Color.white);
 		pausar.setBorder(BorderFactory.createLineBorder(Color.black, 3));
  		pausar.setFont(new Font("Aptos", Font.BOLD, 20));
+ 		pausar.setEnabled(false);
  		panelAfuera.add(pausar);
+ 		
+ 		pausar.addActionListener(new ActionListener() 
+ 		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				reanudar.setEnabled(true);
+				pausar.setEnabled(false);
+				temporizador.stop();
+				
+				B1.setEnabled(false);
+				B2.setEnabled(false);
+				B3.setEnabled(false);
+				B4.setEnabled(false);
+				B5.setEnabled(false);
+				B6.setEnabled(false);
+				B7.setEnabled(false);
+				B8.setEnabled(false);
+				B9.setEnabled(false);
+				B10.setEnabled(false);
+				B11.setEnabled(false);
+				B12.setEnabled(false);
+				B13.setEnabled(false);
+				B14.setEnabled(false);
+				B15.setEnabled(false);
+				B16.setEnabled(false);
+			}
+	
+ 		});
+ 		
 		
 		reiniciar.setLocation(490, 640);
  		reiniciar.setSize(175, 50);
@@ -119,7 +263,45 @@ public class VentanaRompecabezas15 extends JFrame
  		reiniciar.setFont(new Font("Aptos", Font.BOLD, 20));
  		panelAfuera.add(reiniciar);
 		
-		numRandom();
+ 		reiniciar.addActionListener(new ActionListener() 
+ 		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				numRandom();
+				
+				B1.setEnabled(false);
+				B2.setEnabled(false);
+				B3.setEnabled(false);
+				B4.setEnabled(false);
+				B5.setEnabled(false);
+				B6.setEnabled(false);
+				B7.setEnabled(false);
+				B8.setEnabled(false);
+				B9.setEnabled(false);
+				B10.setEnabled(false);
+				B11.setEnabled(false);
+				B12.setEnabled(false);
+				B13.setEnabled(false);
+				B14.setEnabled(false);
+				B15.setEnabled(false);
+				B16.setEnabled(false);
+				
+				reanudar.setVisible(false);
+				reanudar.setEnabled(false);
+				iniciar.setVisible(true);
+				pausar.setEnabled(false);
+				temporizador.restart();
+				temporizador.stop();
+				sec = 0;
+				mins = 0;
+				horas = 0;
+
+				tiempo.setText("00:00:00");
+			}
+	
+ 		});
+
 		
 		B1.setForeground(Color.black);
 		B1.setBackground(Color.white);
@@ -136,6 +318,7 @@ public class VentanaRompecabezas15 extends JFrame
 				viejo().setText(B1.getText());
 				B1.setText("");
 				validacion();
+				ganador();
 				botonViejo = 1;
 			}
 			
@@ -157,6 +340,7 @@ public class VentanaRompecabezas15 extends JFrame
 				viejo().setText(B2.getText());
 				B2.setText("");
 				validacion();
+				ganador();
 				botonViejo = 2;
 			}
 			
@@ -178,6 +362,7 @@ public class VentanaRompecabezas15 extends JFrame
 				viejo().setText(B3.getText());
 				B3.setText("");
 				validacion();
+				ganador();
 				botonViejo = 3;
 			}
 			
@@ -199,6 +384,7 @@ public class VentanaRompecabezas15 extends JFrame
 				viejo().setText(B4.getText());
 				B4.setText("");
 				validacion();
+				ganador();
 				botonViejo = 4;
 			}
 			
@@ -220,6 +406,7 @@ public class VentanaRompecabezas15 extends JFrame
 				viejo().setText(B5.getText());
 				B5.setText("");
 				validacion();
+				ganador();
 				botonViejo = 5;
 			}
 			
@@ -241,6 +428,7 @@ public class VentanaRompecabezas15 extends JFrame
 				viejo().setText(B6.getText());
 				B6.setText("");
 				validacion();
+				ganador();
 				botonViejo = 6;
 			}
 			
@@ -262,6 +450,7 @@ public class VentanaRompecabezas15 extends JFrame
 				viejo().setText(B7.getText());
 				B7.setText("");
 				validacion();
+				ganador();
 				botonViejo = 7;
 			}
 			
@@ -283,6 +472,7 @@ public class VentanaRompecabezas15 extends JFrame
 				viejo().setText(B8.getText());
 				B8.setText("");
 				validacion();
+				ganador();
 				botonViejo = 8;
 			}
 			
@@ -304,6 +494,7 @@ public class VentanaRompecabezas15 extends JFrame
 				viejo().setText(B9.getText());
 				B9.setText("");
 				validacion();
+				ganador();
 				botonViejo = 9;
 			}
 			
@@ -325,6 +516,7 @@ public class VentanaRompecabezas15 extends JFrame
 				viejo().setText(B10.getText());
 				B10.setText("");
 				validacion();
+				ganador();
 				botonViejo = 10;
 			}
 			
@@ -346,6 +538,7 @@ public class VentanaRompecabezas15 extends JFrame
 				viejo().setText(B11.getText());
 				B11.setText("");
 				validacion();
+				ganador();
 				botonViejo = 11;
 			}
 			
@@ -367,6 +560,7 @@ public class VentanaRompecabezas15 extends JFrame
 				viejo().setText(B12.getText());
 				B12.setText("");
 				validacion();
+				ganador();
 				botonViejo = 12;
 			}
 			
@@ -388,6 +582,7 @@ public class VentanaRompecabezas15 extends JFrame
 				viejo().setText(B13.getText());
 				B13.setText("");
 				validacion();
+				ganador();
 				botonViejo = 13;
 			}
 			
@@ -409,6 +604,7 @@ public class VentanaRompecabezas15 extends JFrame
 				viejo().setText(B14.getText());
 				B14.setText("");
 				validacion();
+				ganador();
 				botonViejo = 14;
 			}
 			
@@ -430,6 +626,7 @@ public class VentanaRompecabezas15 extends JFrame
 				viejo().setText(B15.getText());
 				B15.setText("");
 				validacion();
+				ganador();
 				botonViejo = 15;
 			}
 			
@@ -451,13 +648,11 @@ public class VentanaRompecabezas15 extends JFrame
 				viejo().setText(B16.getText());
 				B16.setText("");
 				validacion();
+				ganador();
 				botonViejo = 16;
 			}
 			
 		});
-		
-		
-		validacion();
 		
 		panel.revalidate();
 		
@@ -674,6 +869,29 @@ public class VentanaRompecabezas15 extends JFrame
 				&& B5.getText().equals("5") && B6.getText().equals("6") && B7.getText().equals("7") && B8.getText().equals("8")
 				&& B9.getText().equals("9") && B10.getText().equals("10") && B11.getText().equals("11") && B12.getText().equals("12") 
 				&& B13.getText().equals("13") && B14.getText().equals("14") && B15.getText().equals("15") && B16.getText().equals(""))
-			JOptionPane.showMessageDialog(panel, "Has ganado!", "Ganador!", JOptionPane.INFORMATION_MESSAGE);
+		{
+			temporizador.stop();
+			reanudar.setEnabled(false);
+			
+			B1.setEnabled(false);
+			B2.setEnabled(false);
+			B3.setEnabled(false);
+			B4.setEnabled(false);
+			B5.setEnabled(false);
+			B6.setEnabled(false);
+			B7.setEnabled(false);
+			B8.setEnabled(false);
+			B9.setEnabled(false);
+			B10.setEnabled(false);
+			B11.setEnabled(false);
+			B12.setEnabled(false);
+			B13.setEnabled(false);
+			B14.setEnabled(false);
+			B15.setEnabled(false);
+			B16.setEnabled(false);
+			
+			JOptionPane.showMessageDialog(panel, "Bien hecho! Completaste el Puzzle en: " + tiempo.getText(), "Ganador!", JOptionPane.INFORMATION_MESSAGE);
+		}
 	}
+	
 }
