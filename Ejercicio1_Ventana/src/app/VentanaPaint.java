@@ -35,7 +35,7 @@ public class VentanaPaint extends JFrame implements MouseListener, MouseMotionLi
 {
 	Font fuente = new Font("Aptos", Font.BOLD, 20);
 	
-	int grosorI = 12, grosor = 12;
+	int grosorI = 12, grosor = 12, tool = 1;
 	
 	Color color = Color.black;
 	
@@ -44,10 +44,13 @@ public class VentanaPaint extends JFrame implements MouseListener, MouseMotionLi
 	ArrayList<Point> puntos = new ArrayList<Point>();
 	List <List <Point>> listaPuntos = new ArrayList<>();
 	
+	private ArrayList<Figura> figuras = new ArrayList<Figura>();
+	
 	// Creamos listas para que haya un historial del grosor y el color
 	List<Integer> listaGrosor = new ArrayList<>();
 	List<Color> listaColores = new ArrayList<>();
 	
+	int x, y;
 	
 	public VentanaPaint(String title)
 	{
@@ -128,12 +131,35 @@ public class VentanaPaint extends JFrame implements MouseListener, MouseMotionLi
 		pincel.setBorder(new LineBorder(Color.black, 3));
 		panelHerramientas.add(pincel);
 		
+		pincel.addActionListener(new ActionListener() 
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				tool = 1;		
+			}
+			
+		});
+		
+		
 		JButton borrador = new JButton("  Borrador  ");
 		borrador.setBackground(Color.white);
 		borrador.setForeground(Color.black);
 		borrador.setFont(fuente);
 		borrador.setBorder(new LineBorder(Color.black, 3));
 		panelHerramientas.add(borrador);
+		
+		pincel.addActionListener(new ActionListener() 
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				tool = 2;		
+			}
+			
+		});
 		
 		
 		// JSpinner
@@ -168,12 +194,36 @@ public class VentanaPaint extends JFrame implements MouseListener, MouseMotionLi
 		circulo.setIcon(new ImageIcon(getClass().getResource("images/circle.png")));
 		panelFiguras.add(circulo);
 		
+		circulo.addActionListener(new ActionListener() 
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				tool = 3;		
+			}
+			
+		});
+		
+		
 		JButton cuadrado = new JButton();
 		cuadrado.setBackground(Color.white);
 		cuadrado.setForeground(Color.black);
 		cuadrado.setFont(fuente);
 		cuadrado.setIcon(new ImageIcon(getClass().getResource("images/square.png")));
 		panelFiguras.add(cuadrado);
+		
+		cuadrado.addActionListener(new ActionListener() 
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				tool = 4;		
+			}
+			
+		});
+		
 		
 		JButton triangulo = new JButton();
 		triangulo.setBackground(Color.white);
@@ -182,12 +232,35 @@ public class VentanaPaint extends JFrame implements MouseListener, MouseMotionLi
 		triangulo.setIcon(new ImageIcon(getClass().getResource("images/triangle.png")));
 		panelFiguras.add(triangulo);
 		
+		triangulo.addActionListener(new ActionListener() 
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				tool = 5;		
+			}
+			
+		});
+		
+		
 		JButton linea = new JButton();
 		linea.setBackground(Color.white);
 		linea.setForeground(Color.black);
 		linea.setFont(fuente);
 		linea.setIcon(new ImageIcon(getClass().getResource("images/line.png")));
 		panelFiguras.add(linea);
+		
+		linea.addActionListener(new ActionListener() 
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				tool = 6;		
+			}
+			
+		});
 		
 		
 		// JButton para limpiar
@@ -367,25 +440,61 @@ public class VentanaPaint extends JFrame implements MouseListener, MouseMotionLi
 	@Override
 	public void mouseClicked(MouseEvent e) 
 	{
-		// TODO Auto-generated method stub
+		if (tool == 3)
+		{
+			figuras.add(new Figura(e.getX(), e.getY(), grosor, grosor, color, 0, grosor));
+		}
+		
+		if (tool == 4)
+		{
+			figuras.add(new Figura(e.getX(), e.getY(), grosor, grosor, color, 1, grosor));
+		}	
+		
+		panelDibujo.repaint();
 		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) 
 	{
+		if (tool == 3)
+		{
+			figuras.add(new Figura(e.getX(), e.getY(), grosor, grosor, color, 0, grosor));
+		}
 		
+		if (tool == 4)
+		{
+			figuras.add(new Figura(e.getX(), e.getY(), grosor, grosor, color, 1, grosor));
+		}
+		
+		if (tool == 6)
+		{
+			x = e.getX();
+			y = e.getY();
+		}
+		
+		panelDibujo.repaint();
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) 
 	{	
-		ArrayList puntosResp = (ArrayList)puntos.clone();
+		if (tool == 1)
+		{
+			ArrayList puntosResp = (ArrayList)puntos.clone();
+			
+			listaGrosor.add(grosor);
+			listaColores.add(color);
+			listaPuntos.add(puntosResp);
+			puntos.clear();
+		}
 		
-		listaGrosor.add(grosor);
-		listaColores.add(color);
-		listaPuntos.add(puntosResp);
-		puntos.clear();
+		if (tool == 6)
+		{
+			figuras.add(new Figura(x, y, e.getX(), e.getY(), color, 2, grosor));
+		}
+		
+		panelDibujo.repaint();
 	}
 
 	@Override
@@ -403,14 +512,18 @@ public class VentanaPaint extends JFrame implements MouseListener, MouseMotionLi
 	@Override
 	public void mouseDragged(MouseEvent e) 
 	{
-		panelDibujo.repaint();
-		puntos.add(e.getPoint());
+		if (tool == 1)
+		{
+			panelDibujo.repaint();
+			puntos.add(e.getPoint());
+		}
+	
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) 
 	{
-	
+		panelDibujo.repaint();
 	}
 	
 	class PaintPanel extends JPanel 
@@ -460,6 +573,42 @@ public class VentanaPaint extends JFrame implements MouseListener, MouseMotionLi
 					g2.drawLine(p1.x, p1.y, p2.x, p2.y);
 				}
 			}
+			
+			if (figuras.size()>= 1)
+			{
+				for (int i = 0; i < figuras.size(); i++) 
+				{
+					Figura f = figuras.get(i);
+					g2.setColor(f.color);
+					g2.setStroke(new BasicStroke(f.grosor));
+					
+					if (f.fig == 0)
+						g2.drawOval(f.x, f.y, f.w, f.h);
+					
+					if (f.fig == 1)
+						g2.drawRect(f.x, f.y, f.w, f.h);
+					
+					if (f.fig == 2)
+						g2.drawLine(f.x, f.y, f.w, f.h);
+				}
+			}
+		}
+	}
+	
+	class Figura
+	{
+		public int x,y,w,h,fig,grosor;
+		public Color color;
+		
+		public Figura(int x, int y, int w, int h, Color color, int fig, int grosor)
+		{
+			this.x = x;
+			this.y = y;
+			this.w = w;
+			this.h = h;
+			this.color = color;
+			this.fig = fig;
+			this.grosor = grosor;
 		}
 	}
 }
