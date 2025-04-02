@@ -150,7 +150,7 @@ public class VentanaPaint extends JFrame implements MouseListener, MouseMotionLi
 		borrador.setBorder(new LineBorder(Color.black, 3));
 		panelHerramientas.add(borrador);
 		
-		pincel.addActionListener(new ActionListener() 
+		borrador.addActionListener(new ActionListener() 
 		{
 
 			@Override
@@ -271,6 +271,20 @@ public class VentanaPaint extends JFrame implements MouseListener, MouseMotionLi
 		limpiar.setFont(fuente);
 		limpiar.setBorder(new LineBorder(Color.black, 3));
 		panelHerramientas.add(limpiar);
+		
+		limpiar.addActionListener(new ActionListener() 
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				puntos.clear();
+				listaPuntos.clear();
+				figuras.clear();
+				panelDibujo.repaint();
+			}
+			
+		});
 		
 		
 		// JButton para colores
@@ -514,9 +528,15 @@ public class VentanaPaint extends JFrame implements MouseListener, MouseMotionLi
 	{
 		if (tool == 1)
 		{
-			panelDibujo.repaint();
 			puntos.add(e.getPoint());
 		}
+		
+		if (tool == 2)
+		{
+			figuras.add(new Figura(e.getX(), e.getY(), grosor*2, grosor*2, Color.white, 4, grosor));
+		}
+		
+		panelDibujo.repaint();
 	
 	}
 
@@ -560,20 +580,6 @@ public class VentanaPaint extends JFrame implements MouseListener, MouseMotionLi
 				contador++;
 			}
 			
-			g2.setColor(color);
-			g2.setStroke(new BasicStroke(grosor));
-			
-			if (puntos.size()> 1)
-			{
-				for (int i = 1; i < puntos.size(); i++) 
-				{
-					Point p1 = puntos.get(i - 1);
-					Point p2 = puntos.get(i);
-					
-					g2.drawLine(p1.x, p1.y, p2.x, p2.y);
-				}
-			}
-			
 			if (figuras.size()>= 1)
 			{
 				for (int i = 0; i < figuras.size(); i++) 
@@ -590,6 +596,23 @@ public class VentanaPaint extends JFrame implements MouseListener, MouseMotionLi
 					
 					if (f.fig == 2)
 						g2.drawLine(f.x, f.y, f.w, f.h);
+					
+					if (f.fig == 4)
+						g2.clearRect(f.x, f.y, f.w, f.h);
+				}
+			}
+			
+			g2.setColor(color);
+			g2.setStroke(new BasicStroke(grosor));
+			
+			if (puntos.size()> 1)
+			{
+				for (int i = 1; i < puntos.size(); i++) 
+				{
+					Point p1 = puntos.get(i - 1);
+					Point p2 = puntos.get(i);
+					
+					g2.drawLine(p1.x, p1.y, p2.x, p2.y);
 				}
 			}
 		}
