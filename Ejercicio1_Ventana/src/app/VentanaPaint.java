@@ -21,6 +21,7 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -35,7 +36,7 @@ public class VentanaPaint extends JFrame implements MouseListener, MouseMotionLi
 {
 	Font fuente = new Font("Aptos", Font.BOLD, 20);
 	
-	int grosorI = 12, grosor = 12, tool = 1;
+	int grosorI = 12, grosor = 12, tool = 1, contornoInt = 0;
 	
 	Color color = Color.black;
 	
@@ -45,6 +46,8 @@ public class VentanaPaint extends JFrame implements MouseListener, MouseMotionLi
 	List <List <Point>> listaPuntos = new ArrayList<>();
 	
 	private ArrayList<Figura> figuras = new ArrayList<Figura>();
+	
+	JCheckBox contorno = new JCheckBox("C");
 	
 	// Creamos listas para que haya un historial del grosor y el color
 	List<Integer> listaGrosor = new ArrayList<>();
@@ -262,6 +265,10 @@ public class VentanaPaint extends JFrame implements MouseListener, MouseMotionLi
 			
 		});
 		
+		contorno.setOpaque(false);
+		contorno.setLayout(null);
+		panelFiguras.add(contorno);
+		
 		
 		// JButton para limpiar
 		
@@ -454,14 +461,20 @@ public class VentanaPaint extends JFrame implements MouseListener, MouseMotionLi
 	@Override
 	public void mouseClicked(MouseEvent e) 
 	{
+		if (contorno.isSelected())
+			contornoInt = 1;
+		else
+			contornoInt = 0;
+			
+		
 		if (tool == 3)
 		{
-			figuras.add(new Figura(e.getX(), e.getY(), grosor, grosor, color, 0, grosor));
+			figuras.add(new Figura(e.getX(), e.getY(), grosor, grosor, color, 0, grosor, contornoInt));
 		}
 		
 		if (tool == 4)
 		{
-			figuras.add(new Figura(e.getX(), e.getY(), grosor, grosor, color, 1, grosor));
+			figuras.add(new Figura(e.getX(), e.getY(), grosor, grosor, color, 1, grosor, contornoInt));
 		}	
 		
 		panelDibujo.repaint();
@@ -471,14 +484,19 @@ public class VentanaPaint extends JFrame implements MouseListener, MouseMotionLi
 	@Override
 	public void mousePressed(MouseEvent e) 
 	{
+		if (contorno.isSelected())
+			contornoInt = 1;
+		else
+			contornoInt = 0;
+		
 		if (tool == 3)
 		{
-			figuras.add(new Figura(e.getX(), e.getY(), grosor, grosor, color, 0, grosor));
+			figuras.add(new Figura(e.getX(), e.getY(), grosor, grosor, color, 0, grosor, contornoInt));
 		}
 		
 		if (tool == 4)
 		{
-			figuras.add(new Figura(e.getX(), e.getY(), grosor, grosor, color, 1, grosor));
+			figuras.add(new Figura(e.getX(), e.getY(), grosor, grosor, color, 1, grosor, contornoInt));
 		}
 		
 		if (tool == 6)
@@ -505,7 +523,7 @@ public class VentanaPaint extends JFrame implements MouseListener, MouseMotionLi
 		
 		if (tool == 6)
 		{
-			figuras.add(new Figura(x, y, e.getX(), e.getY(), color, 2, grosor));
+			figuras.add(new Figura(x, y, e.getX(), e.getY(), color, 2, grosor, 0));
 		}
 		
 		panelDibujo.repaint();
@@ -533,7 +551,7 @@ public class VentanaPaint extends JFrame implements MouseListener, MouseMotionLi
 		
 		if (tool == 2)
 		{
-			figuras.add(new Figura(e.getX(), e.getY(), grosor*2, grosor*2, Color.white, 4, grosor));
+			figuras.add(new Figura(e.getX(), e.getY(), grosor*2, grosor*2, Color.white, 4, grosor, 0));
 		}
 		
 		panelDibujo.repaint();
@@ -586,13 +604,19 @@ public class VentanaPaint extends JFrame implements MouseListener, MouseMotionLi
 				{
 					Figura f = figuras.get(i);
 					g2.setColor(f.color);
-					g2.setStroke(new BasicStroke(f.grosor));
+					g2.setStroke(new BasicStroke(1));
 					
 					if (f.fig == 0)
-						g2.drawOval(f.x, f.y, f.w, f.h);
+						if (f.contorno == 1)
+							g2.drawOval(f.x, f.y, f.w, f.h);
+						else
+							g2.fillOval(f.x, f.y, f.w, f.h);
 					
 					if (f.fig == 1)
-						g2.drawRect(f.x, f.y, f.w, f.h);
+						if (f.contorno == 1)
+							g2.drawRect(f.x, f.y, f.w, f.h);
+						else
+							g2.fillRect(f.x, f.y, f.w, f.h);
 					
 					if (f.fig == 2)
 						g2.drawLine(f.x, f.y, f.w, f.h);
@@ -620,10 +644,10 @@ public class VentanaPaint extends JFrame implements MouseListener, MouseMotionLi
 	
 	class Figura
 	{
-		public int x,y,w,h,fig,grosor;
+		public int x,y,w,h,fig,grosor, contorno;
 		public Color color;
 		
-		public Figura(int x, int y, int w, int h, Color color, int fig, int grosor)
+		public Figura(int x, int y, int w, int h, Color color, int fig, int grosor, int contorno)
 		{
 			this.x = x;
 			this.y = y;
@@ -632,6 +656,7 @@ public class VentanaPaint extends JFrame implements MouseListener, MouseMotionLi
 			this.color = color;
 			this.fig = fig;
 			this.grosor = grosor;
+			this.contorno = contorno;
 		}
 	}
 }
