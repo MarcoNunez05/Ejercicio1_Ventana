@@ -12,7 +12,8 @@ public class Main {
 		// VentanaExamen2 examen = new VentanaExamen2("");
 		// VentanaTicTacToe juego = new VentanaTicTacToe("TicTacToe");
 		// VentanaRompecabezas15 juego2 = new VentanaRompecabezas15("Rompecabezas");
-		VentanaPaint paint = new VentanaPaint("Paint");
+		// VentanaPaint paint = new VentanaPaint("Paint");
+		VentanaTeclado teclado = new VentanaTeclado("Teclado");
 	}
 
 }
