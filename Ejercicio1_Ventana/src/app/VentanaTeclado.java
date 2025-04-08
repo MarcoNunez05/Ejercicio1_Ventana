@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -23,7 +24,9 @@ public class VentanaTeclado extends JFrame implements KeyListener
 {
 	PaintPanel panelPintado = new PaintPanel();
 	
-	int x = 475, y = 375;
+	Player p = new Player(480, 380, 30, 30, Color.blue);
+	
+	ArrayList<Player> obstaculos = new ArrayList<Player>();
 
 	public VentanaTeclado(String title)
 	{
@@ -35,11 +38,15 @@ public class VentanaTeclado extends JFrame implements KeyListener
 		
 		this.setResizable(false);
 		
+		obstaculos.add(new Player(50, 300, 200, 70, Color.green));
+		obstaculos.add(new Player(250, 600, 200, 70, Color.green));
+		
 		// Añadimos el panel
 		
 		this.add(panel());
 		this.repaint();
 		this.setVisible(true);
+		
 		
 	}
 	
@@ -73,8 +80,8 @@ public class VentanaTeclado extends JFrame implements KeyListener
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				x = 475;
-				y = 375;
+				p.x = 475;
+				p.y = 375;
 				
 				panelPintado.repaint();
 				panelPintado.setFocusable(true);
@@ -102,8 +109,13 @@ public class VentanaTeclado extends JFrame implements KeyListener
 			
 			Graphics2D g2 = (Graphics2D) g;
 			g2.setColor(Color.blue);
+			g2.fillRect(p.x, p.y, p.w, p.h);
 			
-			g2.fillRect(x, y, 30, 30);
+			for (Player pared : obstaculos) 
+			{
+				g2.setColor(pared.c);
+				g2.fillRect(pared.x, pared.y, pared.w, pared.h);
+			}
 		}
 	}
 
@@ -119,18 +131,76 @@ public class VentanaTeclado extends JFrame implements KeyListener
 	@Override
 	public void keyPressed(KeyEvent e) 
 	{
+		Boolean m = true;
+
+		for (Player pared : obstaculos) 
+		{
+			if (p.colision(pared))
+			{
+				m = false;
+				System.out.println("Colisión");
+			}
+		}
 		
-		if(e.getKeyCode() == 68 && x != 955)
-			x+= 5;
+		if(e.getKeyCode() == 68 && p.x != 955)
+		{
+			if (m || p.ultTecla != 68)
+			{
+				p.x+= 5;
+				
+				if (m)
+					p.ultTecla = 68;
+			}
+			else
+			{
+				p.x-= 5;
+			}
+		}
 		
-		if (e.getKeyCode() == 83 && y != 745)
-			y+= 5;
+		if (e.getKeyCode() == 83 && p.y != 745)
+		{
+			if (m || p.ultTecla != 83) 
+			{
+				p.y+= 5;
+				
+				if (m)
+					p.ultTecla = 83;
+			}
+			else
+			{
+				p.y-= 5;
+			}
+		}
 		
-		if (e.getKeyCode() == 65 && x != 0)
-			x-= 5;
+		if (e.getKeyCode() == 65 && p.x != 0)
+		{
+			if (m || p.ultTecla != 65)
+			{
+				p.x-= 5;
+				
+				if (m)
+					p.ultTecla = 65;
+			}
+			else
+			{
+				p.x+= 5;
+			}
+		}
 			
-		if (e.getKeyCode() == 87 && y != 35)
-			y-= 5;
+		if (e.getKeyCode() == 87 && p.y != 35)
+		{
+			if (m || p.ultTecla != 87)
+			{
+				p.y-= 5;
+				
+				if (m)
+					p.ultTecla = 87;
+			}
+			else
+			{
+				p.y+= 5;
+			}
+		}
 		
 		System.out.println(e);
 		panelPintado.repaint();
@@ -142,5 +212,28 @@ public class VentanaTeclado extends JFrame implements KeyListener
 	{
 		
 		
+	}
+	
+	class Player 
+	{
+		int x, y, w, h, ultTecla;
+		Color c;
+		
+		public Player(int x, int y, int w, int h, Color c)
+		{
+			this.x = x;
+			this.y = y;
+			this.w = w;
+			this.h = h;
+			this.c = c;
+		}
+		
+		public Boolean colision(Player target)
+		{
+			return (this.x -5 < target.x + target.w &&
+	                 this.x + 5 + this.w > target.x &&
+	                 this.y - 5 < target.y + target.h &&
+	                 this.y + 5 + this.h > target.y);
+		}
 	}
 }
