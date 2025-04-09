@@ -19,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 public class VentanaTeclado extends JFrame implements KeyListener
 {
@@ -26,7 +27,18 @@ public class VentanaTeclado extends JFrame implements KeyListener
 	
 	Player p = new Player(480, 380, 30, 30, Color.blue);
 	
+	Timer timer, timer2;
+	
+	int lastKey = 0;
+	boolean changeLastKey = true;
+	
 	ArrayList<Player> obstaculos = new ArrayList<Player>();
+	
+	int milSec = 0, sec = 0, min = 0;
+	
+	String ceroMilSec = "", ceroSec = "", ceroMins = "";
+	
+	JLabel tiempo = new JLabel("00:00:00");
 
 	public VentanaTeclado(String title)
 	{
@@ -40,6 +52,59 @@ public class VentanaTeclado extends JFrame implements KeyListener
 		
 		obstaculos.add(new Player(50, 300, 200, 70, Color.green));
 		obstaculos.add(new Player(250, 600, 200, 70, Color.green));
+		
+		ActionListener reloj = new ActionListener()
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				milSec++;
+				if (milSec == 10)
+				{
+					sec++;
+					milSec = 0;
+				}
+				
+				if (sec == 60)
+				{
+					min++;
+					sec = 0;
+				}
+				
+				if (min < 10)
+					ceroMins = "0";
+				else
+					ceroMins = "";
+				
+				if (sec < 10)
+					ceroSec = "0";
+				else
+					ceroSec = "";
+				
+				if (milSec < 10)
+					ceroMilSec = "0";
+				else
+					ceroMilSec = "";
+					
+				tiempo.setText(ceroMins + min + ":" + ceroSec + sec + ":" + ceroMilSec + milSec);	
+			}
+			
+		};
+		timer = new Timer(100, reloj);
+		
+		ActionListener movimiento = new ActionListener()
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				update();
+			}
+			
+		};
+		timer2 = new Timer(10, movimiento);
+		
 		
 		// Añadimos el panel
 		
@@ -61,7 +126,6 @@ public class VentanaTeclado extends JFrame implements KeyListener
 		JPanel panelArriba = new JPanel();
 		panelPintado.add(panelArriba, BorderLayout.NORTH);
 		
-		JLabel tiempo = new JLabel("0:00");
 		tiempo.setSize(50, 40);
 		tiempo.setLocation(475, 20);
 		tiempo.setFont(new Font("Aptos", Font.BOLD, 20));
@@ -82,6 +146,14 @@ public class VentanaTeclado extends JFrame implements KeyListener
 			{
 				p.x = 475;
 				p.y = 375;
+				
+				timer.stop();
+				timer2.stop();
+				tiempo.setText("00:00:00");
+				
+				milSec = 0;
+				sec = 0;
+				min = 0;
 				
 				panelPintado.repaint();
 				panelPintado.setFocusable(true);
@@ -131,78 +203,82 @@ public class VentanaTeclado extends JFrame implements KeyListener
 	@Override
 	public void keyPressed(KeyEvent e) 
 	{
+		timer.start();
+		timer2.start();
+		
+		p.ultTecla = e.getKeyCode();
+	}
+	
+	public void update()
+	{
 		Boolean m = true;
 
+		System.out.println(lastKey);
 		for (Player pared : obstaculos) 
 		{
 			if (p.colision(pared))
 			{
 				m = false;
-				System.out.println("Colisión");
+				
+				if (changeLastKey)
+				{
+					lastKey = p.ultTecla;
+					changeLastKey = false;
+				}	
 			}
 		}
 		
-		if(e.getKeyCode() == 68 && p.x != 955)
+		if(p.ultTecla == 68 && p.x != 955)
 		{
-			if (m || p.ultTecla != 68)
+			if (m || lastKey != 68)
 			{
 				p.x+= 5;
-				
-				if (m)
-					p.ultTecla = 68;
 			}
 			else
 			{
-				p.x-= 5;
+				p.ultTecla = 0;
 			}
 		}
 		
-		if (e.getKeyCode() == 83 && p.y != 745)
+		if (p.ultTecla == 83 && p.y != 745)
 		{
-			if (m || p.ultTecla != 83) 
+			if (m || lastKey != 83) 
 			{
 				p.y+= 5;
-				
-				if (m)
-					p.ultTecla = 83;
 			}
 			else
 			{
-				p.y-= 5;
+				p.ultTecla = 0;
 			}
 		}
 		
-		if (e.getKeyCode() == 65 && p.x != 0)
+		if (p.ultTecla == 65 && p.x != 0)
 		{
-			if (m || p.ultTecla != 65)
+			if (m || lastKey != 65)
 			{
 				p.x-= 5;
-				
-				if (m)
-					p.ultTecla = 65;
 			}
 			else
 			{
-				p.x+= 5;
+				p.ultTecla = 0;
 			}
 		}
 			
-		if (e.getKeyCode() == 87 && p.y != 35)
+		if (p.ultTecla == 87 && p.y != 35)
 		{
-			if (m || p.ultTecla != 87)
+			if (m || lastKey != 87)
 			{
 				p.y-= 5;
-				
-				if (m)
-					p.ultTecla = 87;
 			}
 			else
 			{
-				p.y+= 5;
+				p.ultTecla = 0;
 			}
 		}
 		
-		System.out.println(e);
+		if (m)
+			changeLastKey = true;
+		
 		panelPintado.repaint();
 	}
 
